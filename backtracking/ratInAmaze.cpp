@@ -5,7 +5,7 @@ using namespace std;
 int ans;
 
 bool canWeGo(vector<vector<int>> &grid , int n , int i , int j){
-    return i>=0 and j>=0 and i<n and j<n and grid[i][j]==1;
+    return i>=0 and j>=0 and i<n and j<n and grid[i][j]==0;
 }
 
 void f(vector<vector<int>> &grid, int n , int i , int j){
