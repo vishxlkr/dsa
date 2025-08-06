@@ -27,7 +27,7 @@ int main(){
     f(arr,0,n,result,temp);
 
     for(int i = 0 ; i<result.size();i++){
-        for(int j = 0 ; j<result[i].size();j++){
+        for(int j = 0 ; j<result[i].size();j++){            // imp -> result[i] not result[0]
             cout<<result[i][j]<<" ";
         } cout<<endl;
     }
