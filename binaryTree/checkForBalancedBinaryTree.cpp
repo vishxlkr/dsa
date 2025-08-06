@@ -41,6 +41,8 @@ int checkHeight(Node* root){
 }
 
 
+// balanced trees => diff(left subtree and right sub tree ) <= 1;
+
 
 int main(){
 
