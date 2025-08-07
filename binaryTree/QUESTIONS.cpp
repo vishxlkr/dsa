@@ -1,18 +1,18 @@
 Phase 1 – Foundation (Binary Tree Basics)
 (Goal: Understand tree structure, traversals, and basic properties)
 
-Level Order Traversal (BFS)
-Preorder / Inorder / Postorder Traversal (DFS)
-Height of Binary Tree
-Count Nodes in Binary Tree
-Check if Binary Tree is Balanced
-Diameter of Binary Tree
-Left View / Right View of Binary Tree
-Top View & Bottom View of Binary Tree
-Zigzag (Spiral) Level Order Traversal
+// Level Order Traversal (BFS)
+// Preorder / Inorder / Postorder Traversal (DFS)
+// Height of Binary Tree
+// Count Nodes in Binary Tree
+// Check if Binary Tree is Balanced
+// Diameter of Binary Tree
+// Left View / Right View of Binary Tree
+// Top View & Bottom View of Binary Tree
+// Zigzag (Spiral) Level Order Traversal
 Boundary Traversal (Anti-clockwise)
-Vertical Order Traversal
-Diagonal Traversal
+// Vertical Order Traversal
+// Diagonal Traversal
 
 Phase 2 – Core Problem Solving
 (Goal: Start applying DFS + BFS for problem solving)
