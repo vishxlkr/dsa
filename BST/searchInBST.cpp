@@ -1,4 +1,3 @@
-
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -25,41 +24,21 @@ void display (Node * root){
     cout<<root->val<<" ";
 }
 
+Node* searchBST(Node* root, int val){
+    if(root == nullptr) return NULL;
 
-vector<vector<int>> verticalOrderTraversal(Node* root){
-    if(root == nullptr)return {};
-
-    map<int,vector<int>> mp;
-
-    queue<pair<Node*, int>> qu;
-    qu.push({root,0});
-
-    while (not qu.empty()){
-        auto curr= qu.front();
-        qu.pop();
-
-        Node* node = curr.first;
-        int hd = curr.second;
-
-        mp[hd].push_back(node->val);
-
-        if(node->left) qu.push({node->left, hd-1});
-        if(node->right) qu.push({node->right, hd+1});
-
-        
-
-        
-    
+    if(root->val == val) return root;
+      else if(root->val > val){           // go left
+        return searchBST(root->left,val);
+    } else if (root->val<val) {
+        return searchBST(root->right,val);
     }
-
-    vector<vector<int>> result;
-    for (auto& [hd, nodelist] : mp) {
-        result.push_back(nodelist);
-    }
-    return result;
-   
 
 }
+
+// here we are returning 
+
+
 
 int main(){
 
@@ -80,8 +59,7 @@ int main(){
     c->left=f;
     c->right=g;
 
-    display(a);
-
+    
 
     
 
