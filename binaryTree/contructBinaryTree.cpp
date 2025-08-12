@@ -15,7 +15,7 @@ class Node {
     }
 };
 
-void contructBinaryTree(vector<int>&arr){
+Node* contructBinaryTree(vector<int>&arr){
     queue<Node*> qu;
     Node* root = new Node(arr[0]);
 
