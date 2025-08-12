@@ -16,6 +16,7 @@
       "valarray": "cpp",
       "bitset": "cpp",
       "utility": "cpp",
-      "new": "cpp"
+      "new": "cpp",
+      "ostream": "cpp"
    }
 }
