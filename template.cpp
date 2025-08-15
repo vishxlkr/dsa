@@ -36,7 +36,7 @@ void err(istream_iterator<string> it) {}
 template <typename T, typename... Args>
 void err(istream_iterator<string> it, T a, Args... args) {
     cout << *it << " = " << a << endl;
-    err(++it, args...);
+    err(++it, args...); 
 }
 
 // typedef tree<ll, null_type, less<ll>, rb_tree_tag, tree_order_statistics_node_update> ordered_set_ll;
