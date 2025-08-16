@@ -26,6 +26,8 @@ void precompute(vector<vector<ll>> & compat , int n){
     }
 }
 
+ 
+
 ll f(vector<vector<ll>> & compat ,int mask){
     if(mask==0) return 0;
 
