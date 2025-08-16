@@ -17,15 +17,44 @@ int f(string s1, string s2 , int i , int j ){
     }
 }
 
+int fbu (string s1, string s2 , int i , int j){
+
+    for(int i = s1.size()-1 ; i>=0;i--){
+        for(int j = s2.size()-1 ; j>=0;j--){
+            if(s1[i]==s2[j]){
+                 dp[i][j]= 1 + dp[i+1][j+1];
+            } else {
+                dp[i][j]= max(dp[i+1][j], dp[i][j+1]);
+            }
+        }
+    }
+    
+    
+
+    return dp[0][0];
+
+}
+
+
+//
+
 
 int main(){
 
     string s1 = "abcde";
-    string s2 = "abc";
+    string s2 = "abce";
 
-    dp.resize(100, vector<int> (100,-1));
+    // for top down
+    dp.resize(1005, vector<int> (1005,-1));    // we need to initialize by -1 in topdown
+    cout<<f(s1,s2,0,0)<<endl;
 
-    cout<<f(s1,s2,0,0);
+
+    dp.clear();
+
+    //for bottom up
+    dp.resize(1005, vector<int>(1005,0));       // we need to initialize by 0 for bottomup
+    cout<<fbu(s1,s2,0,0);
+
     
 
     return 0;
