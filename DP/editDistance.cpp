@@ -45,13 +45,11 @@ int fbu(string & s1, string &s2){
 
 
 
-
-
 int main(){
 
-    string word1; 
-    string word2;
-    cin>>word1>>word2;
+    string word1 = "horse"; 
+    string word2= "rose";
+    // cin>>word1>>word2;
 
     memset(dp,-1, sizeof dp);
     int ans1 =  f(word1, word2, 0 , 0);
@@ -61,8 +59,6 @@ int main(){
     int ans2 = fbu(word1,word2);
 
     cout<<ans1<<endl<<ans2;
-
-
 
     return 0;
 }
