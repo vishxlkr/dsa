@@ -19,6 +19,10 @@ int partition(vector<int> &arr, int first , int last){
     return i+1;
 }
 
+
+
+
+
 void quicksort (vector<int> &arr, int first , int last){
     if(first >= last ) return ;
 
