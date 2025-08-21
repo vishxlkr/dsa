@@ -83,28 +83,21 @@ void selectionSort(vector<int> & arr){
 
 /////////////////////////////////////////////////
 
-int partition (vector<int>& arr, int first , int last){
-
+int partition (vector<int>&arr, int first , int last){
     int pivot = arr[last];
     int j = first;
     int i = first-1;
-
     int n = arr.size();
 
     for(j ; j<n;j++){
         if(arr[j]<pivot){
             i++;
-            swap(arr[i],arr[j]);
+            swap(arr[j],arr[i]);
         }
     }
 
-    swap(arr[i+1], arr[last]);
-
+    swap(arr[i+1],arr[last]);
     return i+1;
-
-
-
-
 }
 
 void quicksort(vector<int> &arr , int first ,int last){
