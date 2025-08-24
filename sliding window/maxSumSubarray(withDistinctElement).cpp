@@ -1,6 +1,8 @@
-class Solution {
-public:
+#include<bits/stdc++.h>
+using namespace std;
+
 #define ll long long
+
     long long maximumSubarraySum(vector<int>& arr, int k) {
         int n = arr.size();
         unordered_map<int,int> freq;        // frequency map
@@ -41,4 +43,13 @@ public:
 
         
     }
-};
+
+int main(){
+
+    vector<int> arr = {1,3,54,54,23,2};
+    int k =2;
+
+    maximumSubarraySum(arr, k);
+
+    return 0;
+}

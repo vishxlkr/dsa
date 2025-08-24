@@ -22,9 +22,9 @@ int bruteforce(vector<int> &arr){
    return maxsum;
 }
 
-int slidingWindow(vector<int>& arr){
+// int slidingWindow(vector<int>& arr){
 
-}v
+// }
 
 
 int main(){
