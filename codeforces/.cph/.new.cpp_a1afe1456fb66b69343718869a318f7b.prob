@@ -1,0 +1,1 @@
+{"name":"Local: new","url":"c:\\Users\\PC\\Desktop\\cp\\codeforces\\new.cpp","tests":[{"id":1756206959238,"input":"3\n2 2 2\n","output":"1"},{"id":1756206972288,"input":"6\n25\n46\n15\n96\n24\n10","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\PC\\Desktop\\cp\\codeforces\\new.cpp","group":"local","local":true}
