@@ -21,7 +21,7 @@ vector<int> nge(vector<int> &arr){
 }
 
 // keep pushing the element into the stack
-// if we can pop out , then pop until its valid 
+// if we can pop out , then pop until its valid and update the output arr
 
 
 int main(){
