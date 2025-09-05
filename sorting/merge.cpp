@@ -36,7 +36,7 @@ void merge(vector<int>&v, int l , int mid , int r){
 }
 
 void mergesort(vector<int>& v, int l , int r){
-    if(l>=r) return ;
+    if(l>=r) return ;                               // if here we dont use = then it will infintely
 
     int mid = (l+r)/2;
 
