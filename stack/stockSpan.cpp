@@ -24,7 +24,6 @@ vector<int> pge (vector<int> &arr){
 
 // here i found the next greater element from behind 
 // and stored the index of next greater element and not the element itself
-// and the end, print the difference
 
 
 int main(){
