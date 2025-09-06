@@ -35,13 +35,15 @@ double fractionalKnapsack(vector<int> & value , vector<int> & weight , int n , i
         } else {                                //pick partially
             profit += ((arr[i].first*1.0)/arr[i].second*1.0) * W;
             W=0; 
-            break;
+            break;          // if wright becomes zero then no need to traverse more
         }                     
     }
 
     return profit;
 
 }
+
+// value = profit / weight
  
 
 
