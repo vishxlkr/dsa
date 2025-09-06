@@ -7,7 +7,11 @@ bool cmp (pp & p1, pp &p2){         // p1.fist->value     p1.second-> weight
     double r2 = (p2.first *1.0)/(p2.second*1.0);
 
     return r1>r2;
+    // if the above condition is true then the first element will be picked     p1
+    // if the above condition is false then the second element will be picked   p2
 }
+
+// 
 
 double fractionalKnapsack(vector<int> & value , vector<int> & weight , int n , int W){
 
