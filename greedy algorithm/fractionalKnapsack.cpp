@@ -11,7 +11,9 @@ bool cmp (pp & p1, pp &p2){         // p1.fist->value     p1.second-> weight
     // if the above condition is false then the second element will be picked   p2
 }
 
-// 
+// trick 
+// > (big first and then small ) -> descending order
+// < (small first and then big) -> ascending order
 
 double fractionalKnapsack(vector<int> & value , vector<int> & weight , int n , int W){
 
