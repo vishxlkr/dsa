@@ -8,7 +8,7 @@ int partition(vector<int> &arr, int first , int last){
     int j = first;
 
 
-    for(j ; j < last ; j ++){
+    for(j ; j < last ; j++){
         if(arr[j]<pivot){
             i++;
             swap(arr[i],arr[j]);
@@ -18,6 +18,7 @@ int partition(vector<int> &arr, int first , int last){
     swap(arr[i+1],arr[last]);
     return i+1;
 }
+
 
 
 
