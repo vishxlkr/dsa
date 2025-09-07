@@ -3,6 +3,10 @@ using namespace std;
 
 #define ll long long
 
+// question
+//Given an integer array arr and an integer k, find the maximum sum of any subarray of size k such that all elements in the subarray are distinct.
+// If no such subarray exists, return 0.
+
     long long maximumSubarraySum(vector<int>& arr, int k) {
         int n = arr.size();
         unordered_map<int,int> freq;        // frequency map
