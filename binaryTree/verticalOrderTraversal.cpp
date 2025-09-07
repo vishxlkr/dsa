@@ -39,12 +39,12 @@ vector<vector<int>> verticalOrderTraversal(Node* root){
         qu.pop();
 
         Node* node = curr.first;
-        int hd = curr.second;
+        int verticalLevel = curr.second;
 
-        mp[hd].push_back(node->val);
+        mp[verticalLevel].push_back(node->val);
 
-        if(node->left) qu.push({node->left, hd-1});
-        if(node->right) qu.push({node->right, hd+1});
+        if(node->left) qu.push({node->left, verticalLevel-1});
+        if(node->right) qu.push({node->right, verticalLevel+1});
 
         
 
