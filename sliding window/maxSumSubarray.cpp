@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// this is sliding window for the fixed size window 
+
 int main(){
 
     vector<int> arr = {7,1,2,5,8,4,9,3,6};
