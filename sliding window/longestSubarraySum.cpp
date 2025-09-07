@@ -22,9 +22,16 @@ int bruteforce(vector<int> &arr){
    return maxsum;
 }
 
-// int slidingWindow(vector<int>& arr){
-
-// }
+int kadane(vector<int>& arr){
+    int currsum = 0 ;
+    int maxsum = INT_MIN ;
+    for(int i  = 0 ; i < arr.size();i++){
+        currsum = currsum + arr[i];
+        maxsum = max(maxsum , currsum);
+        if(currsum < 0 ) currsum = 0;
+    }
+    return maxsum;
+}
 
 
 int main(){
@@ -32,6 +39,9 @@ int main(){
     vector<int> arr = {-2,1,-3,4,-1,2,1,-5,4};
     
     cout<<bruteforce(arr);
+
+    cout<<endl;
+    cout<<kadane(arr);
 
     return 0;
 }
