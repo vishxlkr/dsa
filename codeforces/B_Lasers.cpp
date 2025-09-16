@@ -43,17 +43,19 @@ void err(istream_iterator<string> it, T a, Args... args) {
 // typedef trie<string, null_type, trie_string_access_traits<>, pat_trie_tag, trie_prefix_search_node_update> str_trie;
 
 
-
-
-
-
-
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
-
-
-    
-
+    int t; 
+    if(!(cin >> t)) return 0;
+    while (t--) {
+        int n, m;
+        ll x, y;
+        cin >> n >> m >> x >> y;
+        // read and discard the coordinates arrays
+        for (int i = 0, tmp; i < n; ++i) cin >> tmp;
+        for (int j = 0, tmp; j < m; ++j) cin >> tmp;
+        cout << (ll)n + m << '\n';
+    }
     return 0;
 }

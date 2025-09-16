@@ -43,17 +43,63 @@ void err(istream_iterator<string> it, T a, Args... args) {
 // typedef trie<string, null_type, trie_string_access_traits<>, pat_trie_tag, trie_prefix_search_node_update> str_trie;
 
 
+void file_i_o() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+}
 
 
 
 
 
-int main(){
+
+
+
+int main() {
+
+
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
+    int t; 
+    cin >> t;
+    while (t--) {
+        int n;
+        ll m;
+        cin >> n >> m;
 
-    
+        vector<ll > a(n+1);
+        vector<int> b(n+1);
 
-    return 0;
+        a[0] = 0; 
+        b[0] = 0;  // starting condition
+
+        for (int q = 1; q <= n; q++) {
+            cin >> a[q] >> b[q];
+        }
+
+        ll ans = 0;
+        for (int q = 1; q <= n; q++) {
+            ll gap = a[q] - a[q-1];
+            int startSide = b[q-1], endSide = b[q];
+
+            if (startSide == endSide) {
+                // need even flips
+                ans += gap - (gap % 2);
+            } else {
+                // need odd flips
+                ans += gap - ((gap % 2 == 0) ? 1 : 0);
+            }
+        }
+
+        // After last requirement
+        ans += m - a[n];
+
+        cout << ans << "\n";
+    }
 }

@@ -43,17 +43,65 @@ void err(istream_iterator<string> it, T a, Args... args) {
 // typedef trie<string, null_type, trie_string_access_traits<>, pat_trie_tag, trie_prefix_search_node_update> str_trie;
 
 
+void file_i_o() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+}
 
 
 
-
-
-int main(){
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
+    // file_i_o();
 
-    
+    int t; cin >> t;
+    while (t--) {
+        int n, k;
+        cin >> n >> k;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
 
-    return 0;
+        vector<int> cnt(n+1, 0);
+        for (int x : a) {
+            cnt[x]++;
+        }
+
+        bool okk = true;
+        vector<int> limit(n+1, 0);
+        for (int v = 1; v <= n; v++) {
+            if (cnt[v] % k != 0) {
+                okk = false;
+                break;
+            }
+            limit[v] = cnt[v] / k;
+        }
+
+        if (!okk) {
+            cout << 0 << "\n";
+            continue;
+        }
+
+        ll ans = 0;
+        vector<int> inside(n+1, 0);
+        int L = 0;
+        for (int R = 0; R < n; R++) {
+            inside[a[R]]++;
+            while (inside[a[R]] > limit[a[R]]) {
+                inside[a[L]]--;
+                L++;
+            }
+            ans += (R - L + 1);
+        }
+
+        cout << ans << "\n";
+    }
 }
