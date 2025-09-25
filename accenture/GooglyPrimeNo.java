@@ -11,42 +11,37 @@ Output: NO (1+2+3 = 6)
 
 */
 
+#include <iostream>
+#include <cmath>
+using namespace std;
 
-import java.util.*;
+// Function to check if a number is prime
+bool isPrime(int n) {
+    if (n <= 1) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
 
-public class GooglyPrimeNo{
-
-    public static boolean isPrime(int n){
-        if(n <= 1)
-            return false;
-        
-        for(int i = 2; i <= n/2; i++){
-            if(n % i == 0){
-                return false;
-            }
-        }
-        return true;
+// Function to check if sum of digits is prime
+string googlyPrime(int n) {
+    int sum = 0;
+    while (n > 0) {
+        int lastDigit = n % 10;
+        sum += lastDigit;
+        n /= 10;
     }
 
-    public static String googlyPrime(int n) {
-        int sum = 0;
-        while (n > 0) {
-            int lastDigit = n % 10; 
-            sum += lastDigit; 
-            n /= 10; 
-        }
-        if (isPrime(sum)) {
-            return "YES";
-        }
-        return "NO";
-    }
+    if (isPrime(sum)) return "YES";
+    else return "NO";
+}
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+int main() {
+    int n;
+    cout << "Enter a number: ";
+    cin >> n;
 
-        System.out.println("Enter the the decimal number: ");
-        int n = sc.nextInt();
-
-        System.out.println("Output: "+ googlyPrime(n));
-    }
+    cout << "Output: " << googlyPrime(n) << endl;
+    return 0;
 }
