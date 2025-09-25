@@ -48,43 +48,39 @@ Hence maximum exponent if two is of 8.
 #include <iostream>
 using namespace std;
 
-int CountTwos(int n){
+// Function to count exponent of 2 in prime factorization
+int countTwos(int n) {
     int count = 0;
-    while(n % 2 == 0){
-        n = n/2;
+    while (n % 2 == 0) {
+        n /= 2;
         count++;
     }
     return count;
 }
 
-int MaxExponents(int a, int b){
-
+int MaxExponents(int a, int b) {
     int maxExponent = -1;
     int result = a;
 
-    for(int i = a; i <= b; i++){
-        int exponent = CountTwos(i);
-        if(exponent > maxExponent){
+    for (int i = a; i <= b; i++) {
+        int exponent = countTwos(i);
+
+        if (exponent > maxExponent) {
             maxExponent = exponent;
             result = i;
         }
-        else if(exponent == maxExponent && i < result){
+        else if (exponent == maxExponent && i < result) {
             result = i;
         }
     }
     return result;
 }
 
-int main()
-{
-	int a, b;
-    cout << "Enter the range (a and b): ";
+int main() {
+    int a, b;
     cin >> a >> b;
 
-    int result = MaxExponents(a, b);
-    cout << "Number with maximum exponent of 2 between " << a << " and " << b << " is: " << result << endl;
-
-
-	return 0;
+    cout << MaxExponents(a, b) << endl;
+    return 0;
 }
 
