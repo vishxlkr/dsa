@@ -14,36 +14,39 @@ a
 Explanation: As the vowel 'a' occurs the most in the string str, hence 'a' is printed in the output.
 
 */
+#include <bits/stdc++.h>
+using namespace std;
 
-import java.util.HashMap;
+char MostFrequentVowel(string str) {
+    unordered_map<char, int> vowelCounts;
+    char mostFrequentVowel = '\0';
+    int maxCount = 0;
 
-public class VowelRepetition {
+    for (char ch : str) {
+        if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+            vowelCounts[ch]++;
 
-    // Method to find the most frequent vowel in the string
-    public static char MostFrequentVowel(String str) {
-        HashMap<Character, Integer> vowelCounts = new HashMap<>();
-        char mostFrequentVowel = '\0';
-        int maxCount = 0;
-
-        for (int i = 0; i < str.length(); i++) {
-            char ch = str.charAt(i);
-            if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
-                vowelCounts.put(ch, vowelCounts.getOrDefault(ch, 0) + 1);
-
-                // Update most frequent vowel if current one has a higher count
-                if (vowelCounts.get(ch) > maxCount) {
-                    maxCount = vowelCounts.get(ch);
-                    mostFrequentVowel = ch;
-                }
+            // update most frequent vowel
+            if (vowelCounts[ch] > maxCount) {
+                maxCount = vowelCounts[ch];
+                mostFrequentVowel = ch;
             }
         }
-
-        return mostFrequentVowel;
     }
+    return mostFrequentVowel;
+}
 
-    public static void main(String[] args) {
-        String str = "xayuaba";
-        char result = MostFrequentVowel(str);
-        System.out.println("Most Frequent vowel is: "+result);  // Output: a
-    }
+int main() {
+    int n;
+    cout << "Enter length of string: ";
+    cin >> n;
+
+    string str;
+    cout << "Enter the string: ";
+    cin >> str;
+
+    char result = MostFrequentVowel(str);
+    cout << "Most Frequent vowel is: " << result << endl;
+
+    return 0;
 }
