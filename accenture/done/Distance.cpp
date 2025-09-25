@@ -1,15 +1,15 @@
-'''
+// '''
 
-Ques: The program is supposed to calculate the sum of  distance between three points from each other.
+// Ques: The program is supposed to calculate the sum of  distance between three points from each other.
 
-For
-x1 = 1 y1 = 1
-x2 = 2 y2 = 4
-x3 = 3 y3 = 6
+// For
+// x1 = 1 y1 = 1
+// x2 = 2 y2 = 4
+// x3 = 3 y3 = 6
 
-Distance is calculated as : sqrt(x2-x1)2 + (y2-y1)2
+// Distance is calculated as : sqrt(x2-x1)2 + (y2-y1)2
 
-'''
+// '''
 
 #include <iostream>
 #include <cmath>
