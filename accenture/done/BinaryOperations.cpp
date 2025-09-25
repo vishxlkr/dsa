@@ -33,41 +33,42 @@ Output:
 0
 
 */
+#include <iostream>
+#include <cstring>
+using namespace std;
 
+int OperationsBinaryString(char* str) {
+    if (str == NULL) return -1;
 
-import java.util.*;
-public class BinaryOperations {
+    int len = strlen(str);
+    if (len == 0) return -1;
 
-    public static int OperationsBinaryString(String str){
-        if(str == null) return 0;
+    int result = str[0] - '0'; // first digit
 
-        int result = str.charAt(0) - '0';
+    for (int i = 1; i < len; i += 2) {
+        char op = str[i];       // operator
+        int num = str[i + 1] - '0'; // next digit
 
-        for(int i = 1; i < str.length(); i += 2){
-            char operation = str.charAt(i);
-            int nextDigit = str.charAt(i+1) - '0';
-
-            switch(operation){
-                case 'A':
-                    result = result & nextDigit;
-                    break;
-                case 'B':
-                    result = result | nextDigit;
-                    break;
-                case 'C':
-                    result = result ^ nextDigit;
-                    break;
-                default:
-                    return -1;
-            }
+        if (op == 'A') {
+            result = result & num;  // AND
         }
-        return result;
+        else if (op == 'B') {
+            result = result | num;  // OR
+        }
+        else if (op == 'C') {
+            result = result ^ num;  // XOR
+        }
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        String str = sc.next();
-        System.out.println(OperationsBinaryString(str));
-        sc.close();
-    }
+    return result;
+}
+
+int main() {
+    char str1[] = "1C0C1C1A0B1";
+    cout << "Output: " << OperationsBinaryString(str1) << endl;
+
+    char str2[] = "0C1A1B1C1C1B0A0";
+    cout << "Output: " << OperationsBinaryString(str2) << endl;
+
+    return 0;
 }
