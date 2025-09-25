@@ -29,33 +29,28 @@ Sample Output
 
 */
 
+#include <iostream>
+using namespace std;
 
-#include <stdio.h>
-
-int Calculate(int m, int n){
+int Calculate(int m, int n) {
     int sum = 0;
-    for(int i = m; i <= n; i++){
-        if(i % 3 == 0 && i % 5 == 0){
+    for (int i = m; i <= n; i++) {
+        if (i % 15 == 0) {  // Divisible by both 3 and 5
             sum += i;
         }
     }
     return sum;
 }
 
+int main() {
+    int m, n;
+    cout << "Enter the value of m: ";
+    cin >> m;
+    cout << "Enter the value of n: ";
+    cin >> n;
 
-int main()
-{
-	int m, n, result;
+    int result = Calculate(m, n);
+    cout << "Output: " << result << endl;
 
-    printf ("Enter the value of m : ");
-    scanf ("%d", &m);
-
-    printf ("Enter the value of n : ");
-    scanf ("%d", &n);
-
-    result = Calculate (m, n);
-    printf ("%d", result);
-
-	return 0;
+    return 0;
 }
-
