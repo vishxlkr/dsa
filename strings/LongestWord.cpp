@@ -28,3 +28,20 @@ int main() {
 
     return 0;
 }
+
+
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+int main() {
+    string s = "123";
+    stringstream ss(s);   // create stringstream object with string s
+
+    int num;
+    ss >> num;            // extract integer from stringstream
+
+    cout << "String: " << s << endl;
+    cout << "Integer: " << num << endl;
+    return 0;
+}
