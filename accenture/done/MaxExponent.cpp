@@ -69,9 +69,9 @@ int MaxExponents(int a, int b) {
             maxExponent = exponent;
             result = i;
         }
-        else if (exponent == maxExponent && i < result) {
-            result = i;
-        }
+        // else if (exponent == maxExponent && i < result) {
+        //     result = i;
+        // }
     }
     return result;
 }
