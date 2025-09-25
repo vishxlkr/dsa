@@ -18,74 +18,69 @@ Sorted odd array : 4 7
 
 */
 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-public class Matrix {
-
-    public static void divideArray(int[] main, ArrayList<Integer> even, ArrayList<Integer> odd) {
-        for (int i = 0; i < main.length; i++) {
-            if (i % 2 == 0) {
-                even.add(main[i]);
-            } else {
-                odd.add(main[i]);
-            }
+void divideArray(const vector<int>& main, vector<int>& even, vector<int>& odd) {
+    for (int i = 0; i < main.size(); i++) {
+        if (i % 2 == 0) {
+            even.push_back(main[i]);
+        } else {
+            odd.push_back(main[i]);
         }
     }
+}
 
-    public static int secondLargest(ArrayList<Integer> list) {
-        if (list.size() < 2) {
-            throw new IllegalArgumentException("List must have at least two elements to find the second largest");
-        }
-        return list.get(list.size() - 2);
+int secondLargest(const vector<int>& list) {
+    if (list.size() < 2) {
+        throw runtime_error("List must have at least two elements to find the second largest");
+    }
+    return list[list.size() - 2]; // since sorted ascending
+}
+
+int sumOfSecondLargestElements(vector<int>& even, vector<int>& odd) {
+    sort(even.begin(), even.end());
+    sort(odd.begin(), odd.end());
+
+    cout << "Sorted even array: ";
+    for (int e : even) cout << e << " ";
+    cout << endl;
+
+    cout << "Sorted odd array: ";
+    for (int e : odd) cout << e << " ";
+    cout << endl;
+
+    int evenSec = secondLargest(even);
+    int oddSec = secondLargest(odd);
+
+    cout << "Second Largest in Even List: " << evenSec << endl;
+    cout << "Second Largest in Odd List: " << oddSec << endl;
+
+    return evenSec + oddSec;
+}
+
+int main() {
+    int n;
+    cout << "Enter size of array: ";
+    cin >> n;
+
+    vector<int> main(n), even, odd;
+
+    cout << "Enter " << n << " elements:" << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> main[i];
     }
 
-    public static int sumOfSecondLargestElements(ArrayList<Integer> even, ArrayList<Integer> odd) {
-        
-        Collections.sort(even);
-        Collections.sort(odd);
+    divideArray(main, even, odd);
 
-        System.out.println("Sorted even array ");
-        for (int e : even) {
-            System.out.print(e + " ");
-        }
-        System.out.println();
-
-        System.out.println("Sorted odd array ");
-        for (int e : odd) {
-            System.out.print(e + " ");
-        }
-        System.out.println();
-
-        int evenSec = secondLargest(even);
-        int oddSec = secondLargest(odd);
-
-        System.out.println("Second Largest Element in Even List is: " + evenSec);
-        System.out.println("Second Largest Element in Odd List is: " + oddSec);
-
-        return evenSec + oddSec;
-    }
-
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        System.out.print("Enter size of array : ");
-        int arrsize = sc.nextInt();
-
-        int[] main = new int[arrsize];
-        ArrayList<Integer> even = new ArrayList<>();
-        ArrayList<Integer> odd = new ArrayList<>();
-
-        System.out.println("Enter " + arrsize + " Elements");
-        for (int i = 0; i < arrsize; i++) {
-            main[i] = sc.nextInt();
-        }
-
-        divideArray(main, even, odd);
-
+    try {
         int sum = sumOfSecondLargestElements(even, odd);
-        System.out.println("Sum Of Second Largest Element Of Odd and Even List: " + sum);
+        cout << "Sum of Second Largest Elements: " << sum << endl;
+    } catch (runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
     }
+
+    return 0;
 }
