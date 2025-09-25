@@ -35,46 +35,35 @@ Sample Output
 
 */
 
-
 #include <iostream>
 using namespace std;
-int CountCarry(int no1, int no2){
 
-    int carry = 0, count = 0, sum = 0;
+int NumberOfCarries(int num1, int num2) {
+    int carries = 0;
+    int carry = 0;
 
-    while (no1 != 0 || no2 != 0) {
-        int val1 = no1 % 10;
-        int val2 = no2 % 10;
+    while (num1 > 0 || num2 > 0) {
+        int digit1 = num1 % 10;
+        int digit2 = num2 % 10;
 
-        sum = carry + val1 + val2;
+        int sum = digit1 + digit2 + carry;
 
-        if (sum > 9) {
+        if (sum >= 10) {
+            carries++;
             carry = 1;
-            count++;
         } else {
             carry = 0;
         }
 
-        no1 = no1 / 10;
-        no2 = no2 / 10;
+        num1 /= 10;
+        num2 /= 10;
     }
-    return count;
+
+    return carries;
 }
 
-int main()
-{
-	int x, y;
-	int result;
-
-    cout<<"Enter first no: "<<endl;
-	cin >> x;
-
-    cout<<"Enter second no: "<<endl;
-	cin >> y;
-
-	result = CountCarry(x, y);
-	cout <<"Result: "<<result;
-
-	return 0;
+int main() {
+    cout << NumberOfCarries(451, 349) << endl;  // 2
+    cout << NumberOfCarries(23, 563) << endl;   // 0
+    return 0;
 }
-
