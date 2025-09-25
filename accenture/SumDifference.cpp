@@ -32,32 +32,32 @@ Sample Output
 
 */
 
+#include <iostream>
+using namespace std;
 
-import java.util.Scanner;
-public class SumDifference {
+int SumDiff(int n, int m) {
+    int sumDiv = 0, sumNotDiv = 0;
 
-    public static int SumDiff(int n, int m){
-
-        int sum1 = 0, sum2 = 0;
-        for(int i = 1; i <= m; i++){
-            if (i % n == 0)
-                sum1 = sum1 + i;
-    	    else    
-                sum2 = sum2 + i;
-        }
-
-        return Math.abs(sum1 - sum2);
+    for (int i = 1; i <= m; i++) {
+        if (i % n == 0)
+            sumDiv += i;       // divisible by n
+        else
+            sumNotDiv += i;    // not divisible by n
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in); 
+    return sumNotDiv - sumDiv; // as per problem statement
+}
 
-        System.out.println("Enter value of n: ");
-        int n = sc.nextInt ();
+int main() {
+    int n, m;
 
-        System.out.println("Enter value of m: ");
-        int m = sc.nextInt ();
+    cout << "Enter value of n: ";
+    cin >> n;
 
-        System.out.println ("Difference: " + SumDiff(n,m));
-    }
+    cout << "Enter value of m: ";
+    cin >> m;
+
+    cout << "Difference: " << SumDiff(n, m) << endl;
+
+    return 0;
 }
