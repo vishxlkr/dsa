@@ -1,16 +1,3 @@
-/*
-
-Rohan is a kid who has just learned about creating words from 
-alphabets. He has written some words in the notepad of his Father 
-laptop. Now his father wants to find the longest word written by Rohan 
-using a computer program. Write a program to find the longest string 
-in a given list of strings. 
-
-Example: 
-Input: yes no number 
-Output: The longest string is: number
-
-*/
 
 
 #include <iostream>
@@ -29,6 +16,7 @@ int main() {
     return 0;
 }
 
+// converts string into number
 
 #include <iostream>
 #include <sstream>
