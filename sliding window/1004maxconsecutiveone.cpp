@@ -3,9 +3,6 @@
 using namespace std;
 
 
-
-
-
 int maxOnes (vector<int> &arr, int k ){
     int left =0;
     int right =0;

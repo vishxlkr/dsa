@@ -5,7 +5,7 @@ using namespace std;
 int main(){
 
     vector<int> arr = {2,-3,4,4,-7,-1,4,-2,6};
-    int k = 3;   //  3  3 3 3  7  7 7  1 2 
+    int k = 3;   //  3 3 3 3 7  7 7  1 2 
     int n = arr.size();
 
     vector<int> ans(n-k+1); 
@@ -24,6 +24,8 @@ int main(){
     } else {
         ans[0]=arr[p];
     }
+
+
 
     // for other windows
     int i = 1;

@@ -33,5 +33,5 @@ int main(){
 
     //  output of vector
 
-
 }
+
