@@ -22,7 +22,10 @@ Explanation: Intervals [1,4] and [4,7] are considered overlapping.
  
 */
 
-// every interval has startTime and endtime. 
+// /* SOLUTION
+// interverals are given in random order -> rearrange them
+// parameter of rearrangement -> (startTime or endtime)
+
 
 
 
