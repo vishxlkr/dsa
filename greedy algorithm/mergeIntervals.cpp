@@ -109,23 +109,3 @@ int main(){
 
     return 0;
 }
-
-git quick
-git quickgit quickgit quickgit quickgit quick
-git quick
-git quick
-git quickgit quick
-
-git quickgit quickgit quick
-
-git quick
-git quick
-
-git quick
-git quickgit quick
-
-git quickgit quick
-
-git quickgit quick
-git quick
-git quick
