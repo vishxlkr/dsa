@@ -48,3 +48,7 @@ int main() {
     cout << "Longest Palindromic Substring: " << longestPalindrome(s);
     return 0;
 }
+
+
+
+git quick
