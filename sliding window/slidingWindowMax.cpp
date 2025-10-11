@@ -10,9 +10,9 @@ int main(){
 
 
 
+git quick
 
-
-
+git quick
 
     return 0;
 }  
