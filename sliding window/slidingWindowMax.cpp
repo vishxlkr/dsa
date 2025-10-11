@@ -17,7 +17,8 @@ git quickgit quick
 
 
 git quick
-git quick
+git quickgit quick
+
 
     return 0;
 }  
