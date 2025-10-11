@@ -12,7 +12,8 @@ int main(){
 
 git quick
 
-git quick
+git quickgit quick
+
 
     return 0;
 }  
