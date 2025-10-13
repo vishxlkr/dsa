@@ -35,8 +35,3 @@ let str2 = String(42); // "42"
 
 let num = 234324;
 let str = num.toString(); //"234324"
-
-
-git quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quick
-git quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quick
-git quickgit quickgit quickgit quick
