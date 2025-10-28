@@ -2,17 +2,17 @@
 
 using namespace std;
 
-vector<list<int>> graph;
-int v;
+vector<list<int>> graph;                                    // this is graph 
+int v;                                              // no of nodes
 
-void addEdge(int s, int d, bool bidir= true){
+void addEdge(int s, int d, bool bidir= true){            // adding the edge to the graph
     graph[s].push_back(d);
     if(bidir)graph[d].push_back(s);
 }
 
 void topobfs(){
     vector<int> indegree(v,0);
-    for(int i =0;i<v;i++){
+    for(int i =0;i<v;i++){                              // for calculating indegree
         for(auto neighbor:graph[i]){
             indegree[neighbor]++;
         }
@@ -27,7 +27,7 @@ void topobfs(){
         }
     }
 
-    cout<<"starting topobfs"<<endl;
+    cout<<"starting topobfs"<<endl;             // starting topological sort from here
 
     while(not qu.empty()){
         int curr = qu.front();
@@ -51,7 +51,7 @@ int main(){
     cin>>v;
     graph.resize(v,list<int>());
 
-    int e;cin>>e;
+    int e;cin>>e;               // no of edges
     while(e--){
         int s, d; cin>>s>>d;
         addEdge(s,d,false);
