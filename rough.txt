@@ -3,4 +3,4 @@ SELECT model,
 FROM campusx.smartphones;
 
 adsf
-git quickgit quick
+git quickgit quickgit quick
