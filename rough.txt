@@ -3,4 +3,6 @@ SELECT model,
 FROM campusx.smartphones;
 
 git quick
+git quick
+git quick
 
