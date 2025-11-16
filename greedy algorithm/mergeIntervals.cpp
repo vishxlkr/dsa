@@ -29,10 +29,10 @@ Explanation: Intervals [1,4] and [4,7] are considered overlapping.
 // so instead of reading the array left to right -> read the array from right to left
 
 
-// overall, when we sort wrt to start time , interate the array from start to end
-// and when we sort wrt to end time , interate the array from end to start
+// overall, when we sort wrt to start time , iterate the array from start to end
+// and when we sort wrt to end time , iterate the array from end to start
 
-// also keep a different result array and add the sorted array there, and interate on interval array and compare with last element of result array
+// also keep a different result array and add the sorted array there, and iterate on interval array and compare with last element of result array
 
 
 
