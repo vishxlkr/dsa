@@ -49,6 +49,6 @@ git quickgit quickgit quickgit quick
 
 git quickgit quickgit quickgit quickgit quickgit git quicgit quickgit ggit quickit quickquickkquigit quickckgit quickggit quickit quick
 git quickgit quickgit quickgit quick
-git quick
+git quickgit quick
 git quickgit quickgit quickgit quickgit quickgit quickgit quick
 git quickgit quickgit quick
