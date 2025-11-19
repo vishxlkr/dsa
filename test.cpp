@@ -46,7 +46,7 @@ int main() {
 git quick
 git quickgit quickgit quickgit quick
 git quick
-git quickgit quickgit quickgit quickgit quickgit git quicgit quickkquigit quickckgit quickggit quickit quick
+git quickgit quickgit quickgit quickgit quickgit git quicgit quickgit quickkquigit quickckgit quickggit quickit quick
 git quick
 git quickgit quickgit quickgit quick
 git quickgit quick
