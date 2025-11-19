@@ -49,4 +49,4 @@ git quick
 git quickgit quickgit quickgit quickgit quickgit git quickquigit quickckgit quickggit quickit quick
 
 git quickgit quickgit quick
-git quick
+git quickgit quick
