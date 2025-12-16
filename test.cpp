@@ -30,8 +30,6 @@ int trap(vector<int> & height){
     
     return water;
     
-    
-    
 }
 
 int main() {
@@ -45,21 +43,29 @@ int main() {
 
 
 
+git
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-git quickgit quickgit quickgit quickgit quickvgit quickgit quickgit quickgit quickgit quickgit quickgit quick
-git quickgit quickgit quickgit quickgit quickgit quickgit quick
-git quickgit quickgit quickgit quickgit quick
 git quick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
