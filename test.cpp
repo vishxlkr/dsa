@@ -1,50 +1,19 @@
-#include <bits/stdc++.h>
+// What is DBMS?
 
-using namespace std;
+// Difference between SQL and NoSQL
 
-int trap(vector<int> & height){
-    int n = height.size();
-    int left = 0; 
-    int right = n-1;
-    int leftMax = 0; 
-    int rightMax = 0;
-    int water = 0;
-    
-    while(left < right ){
-        if(height[left]<height[right]){
-            if(height[left]>=leftMax){
-                leftMax = height[left];
-            } else {
-                water = water + leftMax - height[left];
-            } 
-            left++;
-        } else {
-            if(height[right] >= rightMax){
-                rightMax = height[right];
-            } else {
-                water = water + rightMax- height[right];
-            }
-            right--;
-        }
-    }
-    
-    return water;
-    
-}
+// What is Primary Key?
 
-int main() {
-    // Write C++ code here
-    
-    vector<int> height = {0,2,0,3,1,0,1,3,2,1};
-    cout<<trap(height);
-    return 0;
-}
+// What is Foreign Key?
 
+// What is normalization?
 
+// Difference between 2NF and 3NF
 
+// What is INNER JOIN?
 
+// What is index?
 
+// What are ACID properties?
 
-
-
-
+// What is transaction?
