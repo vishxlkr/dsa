@@ -30,7 +30,7 @@ int brute(vector<int> & height){
 }
 
 
-
+// prefix array appraoch
 int better(vector<int> &height){
     int n = height.size();
     vector<int> leftmax(n);
@@ -55,9 +55,29 @@ int better(vector<int> &height){
     }
 
     return water;
+}
 
+int best(vector<int> & height){
+    int n= height.size();
 
+    int water = 0;
+    int l = 0 , r = n-1;
+    int leftmax = 0 ;
+    int rightmax = 0;
 
+    while(r>l){
+        leftmax = max(leftmax, height[l]);
+        rightmax = max(rightmax, height[r]);
+
+        if(leftmax < rightmax){
+            water = water + leftmax  - height[l];
+            l++;
+        } else {
+            water = water + rightmax - height[r];
+            r--;
+        }
+    }
+    return water;
 }
 
 
@@ -66,8 +86,10 @@ int main(){
 
     vector<int> v = {0,1,0,2,1,0,1,3,2,1,2,1};
 
+    cout<<brute(v)<<endl;
+    cout<<better(v)<<endl;
+    cout<<best(v)<<endl;
 
-   cout<<better(v);
 
     return 0;
 }
