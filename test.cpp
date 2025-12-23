@@ -1,19 +1,30 @@
-// What is DBMS?
+#include<bits/stdc++.h>
+using namespace std;
 
-// Difference between SQL and NoSQL
 
-// What is Primary Key?
+    int f(int n) {
+        int m = n;
+        int reverse = 0;
 
-// What is Foreign Key?
+        while(m!=0){
+            reverse = reverse*10 + m%10;
+            m= m/10;
+            
+        }
+        cout<<reverse<<endl;
 
-// What is normalization?
+        cout<<n-reverse<<endl;
 
-// Difference between 2NF and 3NF
+        
 
-// What is INNER JOIN?
+        // return 10;
+    }
 
-// What is index?
 
-// What are ACID properties?
 
-// What is transaction?
+int main(){
+
+    cout<<f(25);
+
+    return 0;
+}

@@ -1,4 +1,0 @@
-SELECT model,
-       SQRT(w*w + h*h) / screen_size AS ppi
-FROM campusx.smartphones;
-
