@@ -29,5 +29,4 @@ int main(){
     return 0;
 }
 
-git quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit _QUERY_MSVC_PRINTF_QUIRKS
-git quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quick
+git quick
