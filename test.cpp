@@ -30,4 +30,4 @@ int main(){
 }
 
 git quick
-git quick
+git quickgit quickgit quick
