@@ -59,4 +59,4 @@ int main(){
 }
 
 
-git quickgit quickkjgit quick
+git quickgit quickkjgit quickkj
