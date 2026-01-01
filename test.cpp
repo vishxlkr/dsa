@@ -39,5 +39,5 @@ int main(){
 
     return 0;
 }
-
-git quickgit quickgit quick
+git quick
+git quickgit quickgit quickgit quick
