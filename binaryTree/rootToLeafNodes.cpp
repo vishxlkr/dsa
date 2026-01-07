@@ -31,10 +31,6 @@ public:
             return;
         }
 
-       
-        
-
-
         helper(root->left , s + "->" , ans);
         helper(root->right , s + "->" , ans);
 
@@ -51,3 +47,8 @@ public:
         return ans;
     }
 };
+
+
+
+// what we are doing here
+// here we are going to each node and then adding it the string  .... and then if we found ourself that we are present on the last node then we are saving that answer in the vector
