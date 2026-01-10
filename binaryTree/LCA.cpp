@@ -62,3 +62,8 @@ int main() {
 
 // if both exist in left sub tree -> call next function ie. go to left
 // if both exist in right sub tree -> call next function ie. go to right
+
+
+
+
+git quickgit quick
