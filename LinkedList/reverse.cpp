@@ -27,7 +27,7 @@ Node *  reverse(Node * head ){
         currptr = nextptr;
     }
 
-    return currptr;
+    return prevptr;
 }
 
 
