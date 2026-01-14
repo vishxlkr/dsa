@@ -1,6 +1,16 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+class ListNode{
+    int val ;
+    ListNode* next;
+
+    ListNode(int x){
+        val = x;
+        next = NULL;
+    }
+};
+
 class Solution {
 public:
     int getlength(ListNode * head){
