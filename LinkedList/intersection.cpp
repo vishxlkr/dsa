@@ -11,8 +11,7 @@ class ListNode{
     }
 };
 
-class Solution {
-public:
+
     int getlength(ListNode * head){
         if(head == nullptr) return 0;
 
@@ -32,38 +31,38 @@ public:
         return head;
     }
 
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
-        int a = getlength(headA);
-        int b = getlength(headB);
+ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+    int a = getlength(headA);
+    int b = getlength(headB);
 
-        // move the larger linkedlist by k step
+    // move the larger linkedlist by k step
 
-        ListNode* ptr1;
-        ListNode* ptr2;
+    ListNode* ptr1;
+    ListNode* ptr2;
 
-        if(a>=b){
-            int k = a-b;
-             ptr1 = moveAhead(headA, k);
-             ptr2 = headB;
+    if(a>=b){
+        int k = a-b;
+        ptr1 = moveAhead(headA, k);
+        ptr2 = headB;
             
-        } else {
-            int k = b-a;
+    } else {
+        int k = b-a;
             
-             ptr1 = headA;
-             ptr2 = moveAhead(headB,k);
+        ptr1 = headA;
+        ptr2 = moveAhead(headB,k);
             
-        }
-
-        while(ptr1 and ptr2){
-            if(ptr1 == ptr2) return ptr2;
-            ptr1= ptr1->next;
-            ptr2= ptr2->next;
-        }
-
-        return nullptr;
-
     }
-};
+
+    while(ptr1 and ptr2){
+        if(ptr1 == ptr2) return ptr2;
+        ptr1= ptr1->next;
+        ptr2= ptr2->next;
+    }
+
+    return nullptr;
+
+}
+
 
 
 
