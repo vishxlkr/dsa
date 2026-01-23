@@ -72,4 +72,7 @@ int main(){
         else cout<<fmod<<"\n";
     }
 }
+
+
+
 git quick
