@@ -40,12 +40,12 @@ void solve() {
     // If we still have distance to cover
     long long remaining_dist = target_x - initial_reach;
 
-    // If our best cycle doesn't actually move us forward (or moves us backward),
-    // and we haven't reached the target yet, it's impossible.
+    
     if (best_cycle_progress <= 0) {
         cout << -1 << endl;
     } else {
-        ision: (numerator + denominator - 1) / denominator
+        // Calculate how many cycles (rollbacks) we need to cover the rest.
+        // We use ceiling division: (numerator + denominator - 1) / denominator
         long long rollbacks_needed = (remaining_dist + best_cycle_progress - 1) / best_cycle_progress;
         cout << rollbacks_needed << endl;
     }
