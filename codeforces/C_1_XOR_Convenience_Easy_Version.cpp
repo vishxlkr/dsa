@@ -15,9 +15,7 @@ void solve() {
         long long a, b, c;
         cin >> a >> b >> c;
 
-        // Step 1: Calculate "Free" distance
-        // Before the first rollback (which happens at the b-th jump), 
-        // we can jump b-1 times safely.
+      
         long long free_jumps = b - 1;
         initial_reach += free_jumps * a;
 
