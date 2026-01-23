@@ -45,8 +45,7 @@ void solve() {
     if (best_cycle_progress <= 0) {
         cout << -1 << endl;
     } else {
-        // Calculate how many cycles (rollbacks) we need to cover the rest.
-        // We use ceiling division: (numerator + denominator - 1) / denominator
+        ision: (numerator + denominator - 1) / denominator
         long long rollbacks_needed = (remaining_dist + best_cycle_progress - 1) / best_cycle_progress;
         cout << rollbacks_needed << endl;
     }
