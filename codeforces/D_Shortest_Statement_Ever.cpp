@@ -122,4 +122,4 @@ int main() {
     return 0;
 }
 
-git quickgit quickgit quickgigit quick
+git quickgit quickgit quickgigit quickgit quick
