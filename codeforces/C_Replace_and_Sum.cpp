@@ -62,3 +62,6 @@ int main(){
         cout <<    "\n";
     }
 }
+
+
+git quick
