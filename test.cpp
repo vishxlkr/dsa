@@ -41,6 +41,3 @@ int main(){
 }
 
 
-Keychron K3 Pro
-git quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quickgit quick
-git quickgit quick
