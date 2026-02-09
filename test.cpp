@@ -45,4 +45,8 @@ int main(){
 
 
 git quickadsgit quickgit quickasd
-asdfsdfas
+asdfsdfasgit push -u origin main --force
+
+
+git push -u origin main --force
+git quick
