@@ -1,0 +1,2 @@
+
+            cin>>compat[i][j];
