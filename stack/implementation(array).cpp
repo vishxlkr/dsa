@@ -52,7 +52,7 @@ class Stack{
     }
 
     bool isFull(){
-        return this->to == this->capacity-1 ? return true: false;
+        return this->top == this->capacity-1 ?  true: false;
     }
 
 
