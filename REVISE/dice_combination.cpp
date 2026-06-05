@@ -1,21 +1,25 @@
 #include<bits/stdc++.h>
+#define mod 1000000007
+#define ll long long int
 using namespace std;
 
 
-vector<int> dp;
+vector<ll> dp;
 
-int f(int n){
+ll f(int n){
     if(n==0) return 1;
     // if(n==1) return 1;
 
-    int sum = 0;
+    if(dp[n]!=-1) return dp[n];
+
+    ll sum = 0;
     
     for(int i=1 ; i <= 6 ; i++ ){
         if(n-i < 0) break;
-        sum = sum + f(n-i);
+        sum = (sum%mod + f(n-i)%mod)%mod;
     }
-
-    return sum;
+pp
+    return dp[n]=sum%mod;
 
 
 
@@ -25,10 +29,11 @@ int f(int n){
 
 int main(){
 
-    int n = 3;
+    int n ;
+    cin>>n;
 
     dp.clear();
-    dp.resize(10000005,-1);
+    dp.resize(n+10,-1);
 
     cout<<f(n);
 
