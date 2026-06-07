@@ -13,7 +13,7 @@ ll f(ll sum){
     ll ans = 0;
     for(int i = 0 ; i<coins.size();i++){
         if(sum - coins[i] < 0) continue;
-        ans = (ans % mod + f(sum - coins[i])% mod)% mod;
+        ans = ans  + f(sum - coins[i]);
     }
     return dp[sum]=  ans % mod;
 }

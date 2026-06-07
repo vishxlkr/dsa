@@ -1,0 +1,1739 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSA Interview Problem Bank</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body,
+    #root {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+  </style>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+const { useEffect, useMemo, useState } = React;
+
+const DIFFICULTY_COLOR = {
+  Easy: "#00b8a3",
+  Medium: "#ffa116",
+  Hard: "#ff375f",
+};
+
+const STORAGE_KEY = "dsa-problem-progress-v1";
+
+const ALL_TOPICS = [
+  {
+    id: 1,
+    name: "Arrays",
+    problems: [
+      { name: "Two Sum", lc: 1, diff: "Easy" },
+      { name: "Best Time to Buy and Sell Stock", lc: 121, diff: "Easy" },
+      { name: "Contains Duplicate", lc: 217, diff: "Easy" },
+      { name: "Product of Array Except Self", lc: 238, diff: "Medium" },
+      { name: "Maximum Subarray (Kadane's)", lc: 53, diff: "Medium" },
+      { name: "Maximum Product Subarray", lc: 152, diff: "Medium" },
+      { name: "Find Minimum in Rotated Sorted Array", lc: 153, diff: "Medium" },
+      { name: "Search in Rotated Sorted Array", lc: 33, diff: "Medium" },
+      { name: "3Sum", lc: 15, diff: "Medium" },
+      { name: "Container With Most Water", lc: 11, diff: "Medium" },
+      { name: "Merge Intervals", lc: 56, diff: "Medium" },
+      { name: "Insert Interval", lc: 57, diff: "Medium" },
+      { name: "Non-overlapping Intervals", lc: 435, diff: "Medium" },
+      { name: "Meeting Rooms", lc: 252, diff: "Easy" },
+      { name: "Meeting Rooms II", lc: 253, diff: "Medium" },
+      { name: "Rotate Array", lc: 189, diff: "Medium" },
+      { name: "Move Zeroes", lc: 283, diff: "Easy" },
+      { name: "Sort Colors (Dutch National Flag)", lc: 75, diff: "Medium" },
+      { name: "Next Permutation", lc: 31, diff: "Medium" },
+      { name: "Find the Duplicate Number", lc: 287, diff: "Medium" },
+      { name: "Set Matrix Zeroes", lc: 73, diff: "Medium" },
+      { name: "Spiral Matrix", lc: 54, diff: "Medium" },
+      { name: "Spiral Matrix II", lc: 59, diff: "Medium" },
+      { name: "Rotate Image", lc: 48, diff: "Medium" },
+      { name: "Pascal's Triangle", lc: 118, diff: "Easy" },
+      { name: "Pascal's Triangle II", lc: 119, diff: "Easy" },
+      { name: "Subarray Sum Equals K", lc: 560, diff: "Medium" },
+      { name: "4Sum", lc: 18, diff: "Medium" },
+      { name: "Majority Element", lc: 169, diff: "Easy" },
+      { name: "Majority Element II", lc: 229, diff: "Medium" },
+      { name: "Trapping Rain Water", lc: 42, diff: "Hard" },
+      { name: "Jump Game", lc: 55, diff: "Medium" },
+      { name: "Jump Game II", lc: 45, diff: "Medium" },
+      { name: "Gas Station", lc: 134, diff: "Medium" },
+      { name: "Candy", lc: 135, diff: "Hard" },
+      { name: "First Missing Positive", lc: 41, diff: "Hard" },
+      { name: "Maximum Gap", lc: 164, diff: "Hard" },
+      { name: "Count Inversions in Array", lc: null, diff: "Hard" },
+      { name: "Merge Sorted Arrays", lc: 88, diff: "Easy" },
+      { name: "Remove Duplicates from Sorted Array", lc: 26, diff: "Easy" },
+      { name: "Remove Duplicates from Sorted Array II", lc: 80, diff: "Medium" },
+      { name: "Remove Element", lc: 27, diff: "Easy" },
+      { name: "Find All Numbers Disappeared in an Array", lc: 448, diff: "Easy" },
+      { name: "Find All Duplicates in an Array", lc: 442, diff: "Medium" },
+      { name: "Longest Consecutive Sequence", lc: 128, diff: "Medium" },
+      { name: "Maximum Sum Circular Subarray", lc: 918, diff: "Medium" },
+      { name: "Smallest Subarray with Sum Greater than X", lc: null, diff: "Medium" },
+      { name: "Count of Smaller Numbers After Self", lc: 315, diff: "Hard" },
+      { name: "Reverse Pairs", lc: 493, diff: "Hard" },
+      { name: "Minimum Size Subarray Sum", lc: 209, diff: "Medium" },
+    ],
+  },
+  {
+    id: 2,
+    name: "Strings",
+    problems: [
+      { name: "Valid Anagram", lc: 242, diff: "Easy" },
+      { name: "Valid Palindrome", lc: 125, diff: "Easy" },
+      { name: "Valid Parentheses", lc: 20, diff: "Easy" },
+      { name: "Longest Common Prefix", lc: 14, diff: "Easy" },
+      { name: "Reverse String", lc: 344, diff: "Easy" },
+      { name: "Reverse Words in a String", lc: 151, diff: "Medium" },
+      { name: "String to Integer (atoi)", lc: 8, diff: "Medium" },
+      { name: "Implement strStr()", lc: 28, diff: "Easy" },
+      { name: "Count and Say", lc: 38, diff: "Medium" },
+      { name: "Anagram Groups", lc: 49, diff: "Medium" },
+      { name: "Longest Substring Without Repeating Characters", lc: 3, diff: "Medium" },
+      { name: "Longest Repeating Character Replacement", lc: 424, diff: "Medium" },
+      { name: "Minimum Window Substring", lc: 76, diff: "Hard" },
+      { name: "Palindromic Substrings", lc: 647, diff: "Medium" },
+      { name: "Longest Palindromic Substring", lc: 5, diff: "Medium" },
+      { name: "Encode and Decode Strings", lc: 271, diff: "Medium" },
+      { name: "Zigzag Conversion", lc: 6, diff: "Medium" },
+      { name: "Roman to Integer", lc: 13, diff: "Easy" },
+      { name: "Integer to Roman", lc: 12, diff: "Medium" },
+      { name: "Letter Combinations of a Phone Number", lc: 17, diff: "Medium" },
+      { name: "Generate Parentheses", lc: 22, diff: "Medium" },
+      { name: "Compare Version Numbers", lc: 165, diff: "Medium" },
+      { name: "Isomorphic Strings", lc: 205, diff: "Easy" },
+      { name: "Word Pattern", lc: 290, diff: "Easy" },
+      { name: "Repeated Substring Pattern", lc: 459, diff: "Easy" },
+      { name: "Find All Anagrams in a String", lc: 438, diff: "Medium" },
+      { name: "Permutation in String", lc: 567, diff: "Medium" },
+      { name: "Decode String", lc: 394, diff: "Medium" },
+      { name: "Smallest Window Containing All Characters", lc: null, diff: "Hard" },
+      { name: "Longest Palindrome by Deleting / Rearranging", lc: 409, diff: "Easy" },
+      { name: "Check if String is Rotation of Another", lc: null, diff: "Easy" },
+      { name: "Minimum Characters to Add for Palindrome", lc: null, diff: "Hard" },
+      { name: "KMP – Pattern Matching", lc: 28, diff: "Medium" },
+      { name: "Rabin-Karp Pattern Matching", lc: null, diff: "Medium" },
+      { name: "Wildcard Matching", lc: 44, diff: "Hard" },
+      { name: "Regular Expression Matching", lc: 10, diff: "Hard" },
+      { name: "Add Binary", lc: 67, diff: "Easy" },
+      { name: "Multiply Strings", lc: 43, diff: "Medium" },
+      { name: "Text Justification", lc: 68, diff: "Hard" },
+      { name: "Minimum Remove to Make Valid Parentheses", lc: 1249, diff: "Medium" },
+    ],
+  },
+  {
+    id: 3,
+    name: "Hashing",
+    problems: [
+      { name: "Two Sum", lc: 1, diff: "Easy" },
+      { name: "Contains Duplicate", lc: 217, diff: "Easy" },
+      { name: "Ransom Note", lc: 383, diff: "Easy" },
+      { name: "Isomorphic Strings", lc: 205, diff: "Easy" },
+      { name: "Word Pattern", lc: 290, diff: "Easy" },
+      { name: "Valid Anagram", lc: 242, diff: "Easy" },
+      { name: "Group Anagrams", lc: 49, diff: "Medium" },
+      { name: "Happy Number", lc: 202, diff: "Easy" },
+      { name: "Longest Consecutive Sequence", lc: 128, diff: "Medium" },
+      { name: "Four Sum II", lc: 454, diff: "Medium" },
+      { name: "Subarray Sum Equals K", lc: 560, diff: "Medium" },
+      { name: "Continuous Subarray Sum", lc: 523, diff: "Medium" },
+      { name: "Top K Frequent Elements", lc: 347, diff: "Medium" },
+      { name: "Find All Anagrams in a String", lc: 438, diff: "Medium" },
+      { name: "LRU Cache", lc: 146, diff: "Medium" },
+      { name: "LFU Cache", lc: 460, diff: "Hard" },
+      { name: "Insert Delete GetRandom O(1)", lc: 380, diff: "Medium" },
+      { name: "Design HashMap", lc: 706, diff: "Easy" },
+      { name: "Design HashSet", lc: 705, diff: "Easy" },
+      { name: "Count Number of Nice Subarrays", lc: 1248, diff: "Medium" },
+      { name: "Longest Subarray with Equal 0s and 1s", lc: null, diff: "Medium" },
+      { name: "Minimum Window Substring", lc: 76, diff: "Hard" },
+      { name: "Pairs of Songs With Total Durations Divisible by 60", lc: 1010, diff: "Medium" },
+    ],
+  },
+  {
+    id: 4,
+    name: "Sliding Window",
+    problems: [
+      { name: "Best Time to Buy and Sell Stock", lc: 121, diff: "Easy" },
+      { name: "Longest Substring Without Repeating Characters", lc: 3, diff: "Medium" },
+      { name: "Longest Repeating Character Replacement", lc: 424, diff: "Medium" },
+      { name: "Permutation in String", lc: 567, diff: "Medium" },
+      { name: "Find All Anagrams in a String", lc: 438, diff: "Medium" },
+      { name: "Minimum Window Substring", lc: 76, diff: "Hard" },
+      { name: "Sliding Window Maximum", lc: 239, diff: "Hard" },
+      { name: "Minimum Size Subarray Sum", lc: 209, diff: "Medium" },
+      { name: "Maximum Sum Subarray of Size K", lc: null, diff: "Easy" },
+      { name: "Fruits Into Baskets", lc: 904, diff: "Medium" },
+      { name: "Longest Subarray with Ones after Replacement", lc: 1004, diff: "Medium" },
+      { name: "Maximum Number of Vowels in a Substring", lc: 1456, diff: "Medium" },
+      { name: "Count Distinct Characters in Substrings", lc: null, diff: "Medium" },
+      { name: "Substrings of Size Three with Distinct Characters", lc: 1876, diff: "Easy" },
+      { name: "Number of Subarrays with Bounded Maximum", lc: 795, diff: "Medium" },
+      { name: "Grumpy Bookstore Owner", lc: 1052, diff: "Medium" },
+      { name: "Max Consecutive Ones III", lc: 1004, diff: "Medium" },
+      { name: "Longest Substring with At Most K Distinct Characters", lc: 340, diff: "Medium" },
+      { name: "Longest Substring with At Most Two Distinct Characters", lc: 159, diff: "Medium" },
+      { name: "Substring with Concatenation of All Words", lc: 30, diff: "Hard" },
+    ],
+  },
+  {
+    id: 5,
+    name: "Two Pointers",
+    problems: [
+      { name: "Two Sum II (Sorted Array)", lc: 167, diff: "Medium" },
+      { name: "Valid Palindrome", lc: 125, diff: "Easy" },
+      { name: "3Sum", lc: 15, diff: "Medium" },
+      { name: "3Sum Closest", lc: 16, diff: "Medium" },
+      { name: "4Sum", lc: 18, diff: "Medium" },
+      { name: "Container With Most Water", lc: 11, diff: "Medium" },
+      { name: "Trapping Rain Water", lc: 42, diff: "Hard" },
+      { name: "Remove Duplicates from Sorted Array", lc: 26, diff: "Easy" },
+      { name: "Remove Duplicates from Sorted Array II", lc: 80, diff: "Medium" },
+      { name: "Move Zeroes", lc: 283, diff: "Easy" },
+      { name: "Merge Sorted Arrays", lc: 88, diff: "Easy" },
+      { name: "Sort Colors", lc: 75, diff: "Medium" },
+      { name: "Palindrome Linked List", lc: 234, diff: "Easy" },
+      { name: "Reverse String", lc: 344, diff: "Easy" },
+      { name: "Boats to Save People", lc: 881, diff: "Medium" },
+      { name: "Squares of a Sorted Array", lc: 977, diff: "Easy" },
+      { name: "Longest Mountain in Array", lc: 845, diff: "Medium" },
+      { name: "Find K Closest Elements", lc: 658, diff: "Medium" },
+      { name: "Intersection of Two Arrays II", lc: 350, diff: "Easy" },
+      { name: "Linked List Cycle Detection (Floyd's)", lc: 142, diff: "Medium" },
+    ],
+  },
+  {
+    id: 6,
+    name: "Prefix Sum",
+    problems: [
+      { name: "Running Sum of 1D Array", lc: 1480, diff: "Easy" },
+      { name: "Find Pivot Index", lc: 724, diff: "Easy" },
+      { name: "Subarray Sum Equals K", lc: 560, diff: "Medium" },
+      { name: "Range Sum Query Immutable", lc: 303, diff: "Easy" },
+      { name: "Range Sum Query 2D Immutable", lc: 304, diff: "Medium" },
+      { name: "Continuous Subarray Sum", lc: 523, diff: "Medium" },
+      { name: "Count Number of Nice Subarrays", lc: 1248, diff: "Medium" },
+      { name: "Number of Ways to Split Array", lc: 2270, diff: "Medium" },
+      { name: "Minimum Value to Get Positive Step by Step Sum", lc: 1413, diff: "Easy" },
+      { name: "Product of Array Except Self", lc: 238, diff: "Medium" },
+      { name: "Longest Subarray with Sum K", lc: null, diff: "Medium" },
+      { name: "Equilibrium Point", lc: null, diff: "Easy" },
+      { name: "Maximum Sum Rectangle", lc: null, diff: "Hard" },
+      { name: "Corporate Flight Bookings", lc: 1109, diff: "Medium" },
+      { name: "Get Equal Substrings Within Budget", lc: 1208, diff: "Medium" },
+    ],
+  },
+  {
+    id: 7,
+    name: "Binary Search",
+    problems: [
+      { name: "Binary Search", lc: 704, diff: "Easy" },
+      { name: "Search Insert Position", lc: 35, diff: "Easy" },
+      { name: "Find First and Last Position of Element", lc: 34, diff: "Medium" },
+      { name: "Search in Rotated Sorted Array", lc: 33, diff: "Medium" },
+      { name: "Search in Rotated Sorted Array II", lc: 81, diff: "Medium" },
+      { name: "Find Minimum in Rotated Sorted Array", lc: 153, diff: "Medium" },
+      { name: "Find Minimum in Rotated Sorted Array II", lc: 154, diff: "Hard" },
+      { name: "Find Peak Element", lc: 162, diff: "Medium" },
+      { name: "Kth Smallest Element in a Sorted Matrix", lc: 378, diff: "Medium" },
+      { name: "Find K Closest Elements", lc: 658, diff: "Medium" },
+      { name: "Median of Two Sorted Arrays", lc: 4, diff: "Hard" },
+      { name: "Capacity to Ship Packages Within D Days", lc: 1011, diff: "Medium" },
+      { name: "Koko Eating Bananas", lc: 875, diff: "Medium" },
+      { name: "Split Array Largest Sum", lc: 410, diff: "Hard" },
+      { name: "Minimum Number of Days to Make m Bouquets", lc: 1482, diff: "Medium" },
+      { name: "Aggressive Cows (Minimum Distance)", lc: null, diff: "Hard" },
+      { name: "Allocate Minimum Pages", lc: null, diff: "Hard" },
+      { name: "Sqrt(x)", lc: 69, diff: "Easy" },
+      { name: "Guess Number Higher or Lower", lc: 374, diff: "Easy" },
+      { name: "Find Smallest Letter Greater Than Target", lc: 744, diff: "Easy" },
+      { name: "H-Index II", lc: 275, diff: "Medium" },
+      { name: "Time Based Key-Value Store", lc: 981, diff: "Medium" },
+      { name: "Count Negative Numbers in Sorted Matrix", lc: 1351, diff: "Easy" },
+      { name: "Search a 2D Matrix", lc: 74, diff: "Medium" },
+      { name: "Search a 2D Matrix II", lc: 240, diff: "Medium" },
+      { name: "Arranging Coins", lc: 441, diff: "Easy" },
+      { name: "Nth Root of a Number (Binary Search on Answer)", lc: null, diff: "Medium" },
+      { name: "Minimize Max Distance to Gas Station", lc: 774, diff: "Hard" },
+    ],
+  },
+  {
+    id: 8,
+    name: "Recursion",
+    problems: [
+      { name: "Factorial", lc: null, diff: "Easy" },
+      { name: "Fibonacci Number", lc: 509, diff: "Easy" },
+      { name: "Power of Two", lc: 231, diff: "Easy" },
+      { name: "Power of Three", lc: 326, diff: "Easy" },
+      { name: "Pow(x, n)", lc: 50, diff: "Medium" },
+      { name: "Merge Sort Implementation", lc: null, diff: "Medium" },
+      { name: "Quick Sort Implementation", lc: null, diff: "Medium" },
+      { name: "Subsets", lc: 78, diff: "Medium" },
+      { name: "Subsets II", lc: 90, diff: "Medium" },
+      { name: "Permutations", lc: 46, diff: "Medium" },
+      { name: "Permutations II", lc: 47, diff: "Medium" },
+      { name: "Combinations", lc: 77, diff: "Medium" },
+      { name: "Letter Combinations of a Phone Number", lc: 17, diff: "Medium" },
+      { name: "Generate Parentheses", lc: 22, diff: "Medium" },
+      { name: "Tower of Hanoi", lc: null, diff: "Medium" },
+      { name: "Print All Subsequences", lc: null, diff: "Medium" },
+      { name: "Count Subsets with Sum K", lc: null, diff: "Medium" },
+      { name: "Reverse a String using Recursion", lc: null, diff: "Easy" },
+      { name: "Flood Fill", lc: 733, diff: "Easy" },
+    ],
+  },
+  {
+    id: 9,
+    name: "Backtracking",
+    problems: [
+      { name: "Subsets", lc: 78, diff: "Medium" },
+      { name: "Subsets II", lc: 90, diff: "Medium" },
+      { name: "Combination Sum", lc: 39, diff: "Medium" },
+      { name: "Combination Sum II", lc: 40, diff: "Medium" },
+      { name: "Combination Sum III", lc: 216, diff: "Medium" },
+      { name: "Permutations", lc: 46, diff: "Medium" },
+      { name: "Permutations II", lc: 47, diff: "Medium" },
+      { name: "Letter Combinations of a Phone Number", lc: 17, diff: "Medium" },
+      { name: "Generate Parentheses", lc: 22, diff: "Medium" },
+      { name: "N-Queens", lc: 51, diff: "Hard" },
+      { name: "N-Queens II", lc: 52, diff: "Hard" },
+      { name: "Sudoku Solver", lc: 37, diff: "Hard" },
+      { name: "Word Search", lc: 79, diff: "Medium" },
+      { name: "Word Search II", lc: 212, diff: "Hard" },
+      { name: "Palindrome Partitioning", lc: 131, diff: "Medium" },
+      { name: "Rat in a Maze", lc: null, diff: "Medium" },
+      { name: "M-Coloring Problem", lc: null, diff: "Medium" },
+      { name: "Knight's Tour", lc: null, diff: "Hard" },
+      { name: "Restore IP Addresses", lc: 93, diff: "Medium" },
+      { name: "Expression Add Operators", lc: 282, diff: "Hard" },
+      { name: "Remove Invalid Parentheses", lc: 301, diff: "Hard" },
+      { name: "Beautiful Arrangement", lc: 526, diff: "Medium" },
+    ],
+  },
+  {
+    id: 10,
+    name: "Linked List",
+    problems: [
+      { name: "Reverse Linked List", lc: 206, diff: "Easy" },
+      { name: "Merge Two Sorted Lists", lc: 21, diff: "Easy" },
+      { name: "Linked List Cycle", lc: 141, diff: "Easy" },
+      { name: "Linked List Cycle II", lc: 142, diff: "Medium" },
+      { name: "Intersection of Two Linked Lists", lc: 160, diff: "Easy" },
+      { name: "Remove Nth Node From End of List", lc: 19, diff: "Medium" },
+      { name: "Middle of the Linked List", lc: 876, diff: "Easy" },
+      { name: "Palindrome Linked List", lc: 234, diff: "Easy" },
+      { name: "Remove Linked List Elements", lc: 203, diff: "Easy" },
+      { name: "Odd Even Linked List", lc: 328, diff: "Medium" },
+      { name: "Add Two Numbers", lc: 2, diff: "Medium" },
+      { name: "Add Two Numbers II", lc: 445, diff: "Medium" },
+      { name: "Swap Nodes in Pairs", lc: 24, diff: "Medium" },
+      { name: "Reverse Nodes in k-Group", lc: 25, diff: "Hard" },
+      { name: "Sort List", lc: 148, diff: "Medium" },
+      { name: "Merge k Sorted Lists", lc: 23, diff: "Hard" },
+      { name: "Copy List with Random Pointer", lc: 138, diff: "Medium" },
+      { name: "Reorder List", lc: 143, diff: "Medium" },
+      { name: "LRU Cache", lc: 146, diff: "Medium" },
+      { name: "Flatten a Multilevel Doubly Linked List", lc: 430, diff: "Medium" },
+      { name: "Rotate List", lc: 61, diff: "Medium" },
+      { name: "Partition List", lc: 86, diff: "Medium" },
+      { name: "Delete Node in a Linked List", lc: 237, diff: "Medium" },
+      { name: "Remove Duplicates from Sorted List", lc: 83, diff: "Easy" },
+      { name: "Remove Duplicates from Sorted List II", lc: 82, diff: "Medium" },
+      { name: "Merge Sort on Linked List", lc: null, diff: "Medium" },
+    ],
+  },
+  {
+    id: 11,
+    name: "Stack",
+    problems: [
+      { name: "Valid Parentheses", lc: 20, diff: "Easy" },
+      { name: "Min Stack", lc: 155, diff: "Medium" },
+      { name: "Evaluate Reverse Polish Notation", lc: 150, diff: "Medium" },
+      { name: "Daily Temperatures", lc: 739, diff: "Medium" },
+      { name: "Car Fleet", lc: 853, diff: "Medium" },
+      { name: "Largest Rectangle in Histogram", lc: 84, diff: "Hard" },
+      { name: "Maximal Rectangle", lc: 85, diff: "Hard" },
+      { name: "Decode String", lc: 394, diff: "Medium" },
+      { name: "Asteroid Collision", lc: 735, diff: "Medium" },
+      { name: "Basic Calculator", lc: 224, diff: "Hard" },
+      { name: "Basic Calculator II", lc: 227, diff: "Medium" },
+      { name: "Remove All Adjacent Duplicates In String", lc: 1047, diff: "Easy" },
+      { name: "Remove All Adjacent Duplicates in String II", lc: 1209, diff: "Medium" },
+      { name: "Exclusive Time of Functions", lc: 636, diff: "Medium" },
+      { name: "Flatten Nested List Iterator", lc: 341, diff: "Medium" },
+      { name: "Simplify Path", lc: 71, diff: "Medium" },
+      { name: "Score of Parentheses", lc: 856, diff: "Medium" },
+      { name: "Next Greater Element I", lc: 496, diff: "Easy" },
+      { name: "Next Greater Element II", lc: 503, diff: "Medium" },
+      { name: "Online Stock Span", lc: 901, diff: "Medium" },
+    ],
+  },
+  {
+    id: 12,
+    name: "Queue",
+    problems: [
+      { name: "Implement Queue using Stacks", lc: 232, diff: "Easy" },
+      { name: "Implement Stack using Queues", lc: 225, diff: "Easy" },
+      { name: "Design Circular Queue", lc: 622, diff: "Medium" },
+      { name: "Design Circular Deque", lc: 641, diff: "Medium" },
+      { name: "Number of Recent Calls", lc: 933, diff: "Easy" },
+      { name: "Task Scheduler", lc: 621, diff: "Medium" },
+      { name: "First Unique Character in a String", lc: 387, diff: "Easy" },
+      { name: "Sliding Window Maximum (using Deque)", lc: 239, diff: "Hard" },
+      { name: "Dota2 Senate", lc: 649, diff: "Medium" },
+      { name: "Reveal Cards In Increasing Order", lc: 950, diff: "Medium" },
+    ],
+  },
+  {
+    id: 13,
+    name: "Monotonic Stack",
+    problems: [
+      { name: "Daily Temperatures", lc: 739, diff: "Medium" },
+      { name: "Next Greater Element I", lc: 496, diff: "Easy" },
+      { name: "Next Greater Element II", lc: 503, diff: "Medium" },
+      { name: "Largest Rectangle in Histogram", lc: 84, diff: "Hard" },
+      { name: "Maximal Rectangle", lc: 85, diff: "Hard" },
+      { name: "Trapping Rain Water", lc: 42, diff: "Hard" },
+      { name: "Remove K Digits", lc: 402, diff: "Medium" },
+      { name: "132 Pattern", lc: 456, diff: "Medium" },
+      { name: "Stock Span Problem", lc: 901, diff: "Medium" },
+      { name: "Sum of Subarray Minimums", lc: 907, diff: "Medium" },
+      { name: "Largest Rectangle in Buildings", lc: null, diff: "Hard" },
+      { name: "Car Fleet", lc: 853, diff: "Medium" },
+      { name: "Asteroid Collision", lc: 735, diff: "Medium" },
+      { name: "Maximum Width Ramp", lc: 962, diff: "Medium" },
+    ],
+  },
+  {
+    id: 14,
+    name: "Monotonic Queue",
+    problems: [
+      { name: "Sliding Window Maximum", lc: 239, diff: "Hard" },
+      { name: "Shortest Subarray with Sum at Least K", lc: 862, diff: "Hard" },
+      { name: "Constrained Subsequence Sum", lc: 1425, diff: "Hard" },
+      { name: "Jump Game VI", lc: 1696, diff: "Medium" },
+      { name: "Maximum of Minimum for Every Window Size", lc: null, diff: "Hard" },
+      { name: "Largest Rectangle in Histogram (Deque approach)", lc: 84, diff: "Hard" },
+    ],
+  },
+  {
+    id: 15,
+    name: "Heap / Priority Queue",
+    problems: [
+      { name: "Kth Largest Element in an Array", lc: 215, diff: "Medium" },
+      { name: "Kth Smallest Element in a Sorted Matrix", lc: 378, diff: "Medium" },
+      { name: "Top K Frequent Elements", lc: 347, diff: "Medium" },
+      { name: "Top K Frequent Words", lc: 692, diff: "Medium" },
+      { name: "Find K Pairs with Smallest Sums", lc: 373, diff: "Medium" },
+      { name: "Merge k Sorted Lists", lc: 23, diff: "Hard" },
+      { name: "Task Scheduler", lc: 621, diff: "Medium" },
+      { name: "Reorganize String", lc: 767, diff: "Medium" },
+      { name: "Find Median from Data Stream", lc: 295, diff: "Hard" },
+      { name: "Sliding Window Median", lc: 480, diff: "Hard" },
+      { name: "IPO", lc: 502, diff: "Hard" },
+      { name: "Maximum Score from Removing Stones", lc: 1753, diff: "Medium" },
+      { name: "Smallest Number in Infinite Set", lc: 2336, diff: "Medium" },
+      { name: "Minimum Cost to Connect Sticks", lc: 1167, diff: "Medium" },
+      { name: "K Closest Points to Origin", lc: 973, diff: "Medium" },
+      { name: "Last Stone Weight", lc: 1046, diff: "Easy" },
+      { name: "Meeting Rooms II", lc: 253, diff: "Medium" },
+      { name: "Process Tasks Using Servers", lc: 1882, diff: "Medium" },
+      { name: "Swim in Rising Water", lc: 778, diff: "Hard" },
+      { name: "Ugly Number II", lc: 264, diff: "Medium" },
+      { name: "Super Ugly Number", lc: 313, diff: "Medium" },
+    ],
+  },
+  {
+    id: 16,
+    name: "Greedy",
+    problems: [
+      { name: "Jump Game", lc: 55, diff: "Medium" },
+      { name: "Jump Game II", lc: 45, diff: "Medium" },
+      { name: "Gas Station", lc: 134, diff: "Medium" },
+      { name: "Candy", lc: 135, diff: "Hard" },
+      { name: "Task Scheduler", lc: 621, diff: "Medium" },
+      { name: "Reorganize String", lc: 767, diff: "Medium" },
+      { name: "Non-overlapping Intervals", lc: 435, diff: "Medium" },
+      { name: "Merge Intervals", lc: 56, diff: "Medium" },
+      { name: "Meeting Rooms II", lc: 253, diff: "Medium" },
+      { name: "Partition Labels", lc: 763, diff: "Medium" },
+      { name: "Maximum Subarray", lc: 53, diff: "Medium" },
+      { name: "Boats to Save People", lc: 881, diff: "Medium" },
+      { name: "Minimum Number of Arrows to Burst Balloons", lc: 452, diff: "Medium" },
+      { name: "Assign Cookies", lc: 455, diff: "Easy" },
+      { name: "Lemonade Change", lc: 860, diff: "Easy" },
+      { name: "Largest Number", lc: 179, diff: "Medium" },
+      { name: "Queue Reconstruction by Height", lc: 406, diff: "Medium" },
+      { name: "Minimum Platforms Required", lc: null, diff: "Medium" },
+      { name: "Activity Selection Problem", lc: null, diff: "Medium" },
+      { name: "Fractional Knapsack", lc: null, diff: "Medium" },
+      { name: "Minimum Cost to Hire K Workers", lc: 857, diff: "Hard" },
+      { name: "Two City Scheduling", lc: 1029, diff: "Medium" },
+      { name: "Hand of Straights", lc: 846, diff: "Medium" },
+      { name: "Dota2 Senate", lc: 649, diff: "Medium" },
+    ],
+  },
+  {
+    id: 17,
+    name: "Bit Manipulation",
+    problems: [
+      { name: "Single Number", lc: 136, diff: "Easy" },
+      { name: "Single Number II", lc: 137, diff: "Medium" },
+      { name: "Single Number III", lc: 260, diff: "Medium" },
+      { name: "Number of 1 Bits", lc: 191, diff: "Easy" },
+      { name: "Counting Bits", lc: 338, diff: "Easy" },
+      { name: "Missing Number", lc: 268, diff: "Easy" },
+      { name: "Reverse Bits", lc: 190, diff: "Easy" },
+      { name: "Power of Two", lc: 231, diff: "Easy" },
+      { name: "Power of Four", lc: 342, diff: "Easy" },
+      { name: "Sum of Two Integers (no + operator)", lc: 371, diff: "Medium" },
+      { name: "Subsets (Bit Masking)", lc: 78, diff: "Medium" },
+      { name: "Bitwise AND of Numbers Range", lc: 201, diff: "Medium" },
+      { name: "Find the Difference", lc: 389, diff: "Easy" },
+      { name: "XOR Queries of a Subarray", lc: 1310, diff: "Medium" },
+      { name: "Maximum XOR of Two Numbers in an Array", lc: 421, diff: "Medium" },
+      { name: "Total Hamming Distance", lc: 477, diff: "Medium" },
+      { name: "Repeated DNA Sequences", lc: 187, diff: "Medium" },
+      { name: "Divide Two Integers", lc: 29, diff: "Medium" },
+    ],
+  },
+  {
+    id: 18,
+    name: "Trees",
+    problems: [
+      { name: "Maximum Depth of Binary Tree", lc: 104, diff: "Easy" },
+      { name: "Minimum Depth of Binary Tree", lc: 111, diff: "Easy" },
+      { name: "Invert Binary Tree", lc: 226, diff: "Easy" },
+      { name: "Symmetric Tree", lc: 101, diff: "Easy" },
+      { name: "Same Tree", lc: 100, diff: "Easy" },
+      { name: "Diameter of Binary Tree", lc: 543, diff: "Easy" },
+      { name: "Balanced Binary Tree", lc: 110, diff: "Easy" },
+      { name: "Binary Tree Inorder Traversal", lc: 94, diff: "Easy" },
+      { name: "Binary Tree Preorder Traversal", lc: 144, diff: "Easy" },
+      { name: "Binary Tree Postorder Traversal", lc: 145, diff: "Easy" },
+      { name: "Binary Tree Level Order Traversal", lc: 102, diff: "Medium" },
+      { name: "Binary Tree Zigzag Level Order Traversal", lc: 103, diff: "Medium" },
+      { name: "Binary Tree Right Side View", lc: 199, diff: "Medium" },
+      { name: "Binary Tree Level Order Traversal II", lc: 107, diff: "Medium" },
+      { name: "Average of Levels in Binary Tree", lc: 637, diff: "Easy" },
+      { name: "Binary Tree Maximum Path Sum", lc: 124, diff: "Hard" },
+      { name: "Lowest Common Ancestor of a Binary Tree", lc: 236, diff: "Medium" },
+      { name: "Path Sum", lc: 112, diff: "Easy" },
+      { name: "Path Sum II", lc: 113, diff: "Medium" },
+      { name: "Path Sum III", lc: 437, diff: "Medium" },
+      { name: "Flatten Binary Tree to Linked List", lc: 114, diff: "Medium" },
+      { name: "Count Complete Tree Nodes", lc: 222, diff: "Medium" },
+      { name: "Sum Root to Leaf Numbers", lc: 129, diff: "Medium" },
+      { name: "Binary Tree Cameras", lc: 968, diff: "Hard" },
+      { name: "Distribute Coins in Binary Tree", lc: 979, diff: "Medium" },
+    ],
+  },
+  {
+    id: 19,
+    name: "Binary Trees",
+    problems: [
+      { name: "Construct Binary Tree from Preorder and Inorder Traversal", lc: 105, diff: "Medium" },
+      { name: "Construct Binary Tree from Inorder and Postorder Traversal", lc: 106, diff: "Medium" },
+      { name: "Serialize and Deserialize Binary Tree", lc: 297, diff: "Hard" },
+      { name: "Morris Inorder Traversal", lc: null, diff: "Medium" },
+      { name: "Vertical Order Traversal", lc: 987, diff: "Hard" },
+      { name: "Boundary Traversal of Binary Tree", lc: null, diff: "Medium" },
+      { name: "Top View of Binary Tree", lc: null, diff: "Medium" },
+      { name: "Bottom View of Binary Tree", lc: null, diff: "Medium" },
+      { name: "Left View of Binary Tree", lc: null, diff: "Easy" },
+      { name: "Right View of Binary Tree", lc: 199, diff: "Medium" },
+      { name: "Check if Binary Tree is Mirror of Itself", lc: 101, diff: "Easy" },
+      { name: "Children Sum Property", lc: null, diff: "Medium" },
+      { name: "Maximum Width of Binary Tree", lc: 662, diff: "Medium" },
+      { name: "All Nodes Distance K in Binary Tree", lc: 863, diff: "Medium" },
+      { name: "Time Needed to Inform All Employees", lc: 1376, diff: "Medium" },
+      { name: "Find Duplicate Subtrees", lc: 652, diff: "Medium" },
+    ],
+  },
+  {
+    id: 20,
+    name: "BST",
+    problems: [
+      { name: "Validate Binary Search Tree", lc: 98, diff: "Medium" },
+      { name: "Search in a Binary Search Tree", lc: 700, diff: "Easy" },
+      { name: "Insert into a Binary Search Tree", lc: 701, diff: "Medium" },
+      { name: "Delete Node in a BST", lc: 450, diff: "Medium" },
+      { name: "Kth Smallest Element in a BST", lc: 230, diff: "Medium" },
+      { name: "Lowest Common Ancestor of BST", lc: 235, diff: "Medium" },
+      { name: "Binary Search Tree Iterator", lc: 173, diff: "Medium" },
+      { name: "Convert Sorted Array to BST", lc: 108, diff: "Easy" },
+      { name: "Convert Sorted List to BST", lc: 109, diff: "Medium" },
+      { name: "Recover Binary Search Tree", lc: 99, diff: "Medium" },
+      { name: "Two Sum IV - Input is a BST", lc: 653, diff: "Easy" },
+      { name: "Inorder Successor in BST", lc: 285, diff: "Medium" },
+      { name: "Inorder Predecessor in BST", lc: null, diff: "Medium" },
+      { name: "Floor and Ceil in BST", lc: null, diff: "Medium" },
+      { name: "Largest BST in Binary Tree", lc: 333, diff: "Medium" },
+      { name: "Merge Two BSTs", lc: null, diff: "Hard" },
+    ],
+  },
+  {
+    id: 21,
+    name: "DFS",
+    problems: [
+      { name: "Number of Islands", lc: 200, diff: "Medium" },
+      { name: "Max Area of Island", lc: 695, diff: "Medium" },
+      { name: "Flood Fill", lc: 733, diff: "Easy" },
+      { name: "Clone Graph", lc: 133, diff: "Medium" },
+      { name: "Path Sum (Tree DFS)", lc: 112, diff: "Easy" },
+      { name: "All Paths From Source to Target", lc: 797, diff: "Medium" },
+      { name: "Word Search", lc: 79, diff: "Medium" },
+      { name: "Pacific Atlantic Water Flow", lc: 417, diff: "Medium" },
+      { name: "Surrounded Regions", lc: 130, diff: "Medium" },
+      { name: "Count Sub Islands", lc: 1905, diff: "Medium" },
+      { name: "Number of Connected Components in Undirected Graph", lc: 323, diff: "Medium" },
+      { name: "Graph Valid Tree", lc: 261, diff: "Medium" },
+      { name: "Redundant Connection", lc: 684, diff: "Medium" },
+      { name: "Reconstruct Itinerary", lc: 332, diff: "Hard" },
+      { name: "Critical Connections in a Network (Bridges)", lc: 1192, diff: "Hard" },
+      { name: "Articulation Points in Graph", lc: null, diff: "Hard" },
+      { name: "Detect Cycle in Undirected Graph (DFS)", lc: null, diff: "Medium" },
+      { name: "Detect Cycle in Directed Graph (DFS)", lc: null, diff: "Medium" },
+      { name: "Kosaraju's SCC Algorithm", lc: null, diff: "Hard" },
+      { name: "Tarjan's SCC Algorithm", lc: null, diff: "Hard" },
+    ],
+  },
+  {
+    id: 22,
+    name: "BFS",
+    problems: [
+      { name: "Binary Tree Level Order Traversal", lc: 102, diff: "Medium" },
+      { name: "Rotting Oranges", lc: 994, diff: "Medium" },
+      { name: "01 Matrix", lc: 542, diff: "Medium" },
+      { name: "Walls and Gates", lc: 286, diff: "Medium" },
+      { name: "Shortest Path in Binary Matrix", lc: 1091, diff: "Medium" },
+      { name: "Jump Game III", lc: 1306, diff: "Medium" },
+      { name: "Word Ladder", lc: 127, diff: "Hard" },
+      { name: "Word Ladder II", lc: 126, diff: "Hard" },
+      { name: "Minimum Height Trees", lc: 310, diff: "Medium" },
+      { name: "Snakes and Ladders", lc: 909, diff: "Medium" },
+      { name: "Open the Lock", lc: 752, diff: "Medium" },
+      { name: "Nearest Exit from Entrance in Maze", lc: 1926, diff: "Medium" },
+      { name: "Map of Highest Peak", lc: 1765, diff: "Medium" },
+      { name: "As Far from Land as Possible", lc: 1162, diff: "Medium" },
+      { name: "Shortest Bridge", lc: 934, diff: "Medium" },
+      { name: "Bus Routes", lc: 815, diff: "Hard" },
+      { name: "Minimum Genetic Mutation", lc: 433, diff: "Medium" },
+    ],
+  },
+  {
+    id: 23,
+    name: "Graphs",
+    problems: [
+      { name: "Number of Islands", lc: 200, diff: "Medium" },
+      { name: "Clone Graph", lc: 133, diff: "Medium" },
+      { name: "Course Schedule", lc: 207, diff: "Medium" },
+      { name: "Course Schedule II", lc: 210, diff: "Medium" },
+      { name: "Graph Valid Tree", lc: 261, diff: "Medium" },
+      { name: "Number of Connected Components", lc: 323, diff: "Medium" },
+      { name: "Pacific Atlantic Water Flow", lc: 417, diff: "Medium" },
+      { name: "Alien Dictionary", lc: 269, diff: "Hard" },
+      { name: "Longest Consecutive Sequence in Graph", lc: null, diff: "Medium" },
+      { name: "Evaluate Division", lc: 399, diff: "Medium" },
+      { name: "Minimum Effort Path", lc: 1631, diff: "Medium" },
+      { name: "Find the City with Smallest Number of Neighbors", lc: 1334, diff: "Medium" },
+      { name: "Most Stones Removed with Same Row or Column", lc: 947, diff: "Medium" },
+      { name: "Number of Provinces", lc: 547, diff: "Medium" },
+      { name: "Satisfiability of Equality Equations", lc: 990, diff: "Medium" },
+      { name: "Detect Cycle in Undirected Graph", lc: null, diff: "Medium" },
+      { name: "Detect Cycle in Directed Graph", lc: null, diff: "Medium" },
+      { name: "Is Graph Bipartite?", lc: 785, diff: "Medium" },
+      { name: "Possible Bipartition", lc: 886, diff: "Medium" },
+      { name: "Find Eventual Safe States", lc: 802, diff: "Medium" },
+      { name: "Minimum Number of Vertices to Reach All Nodes", lc: 1557, diff: "Medium" },
+    ],
+  },
+  {
+    id: 24,
+    name: "Union Find (DSU)",
+    problems: [
+      { name: "Number of Connected Components", lc: 323, diff: "Medium" },
+      { name: "Graph Valid Tree", lc: 261, diff: "Medium" },
+      { name: "Redundant Connection", lc: 684, diff: "Medium" },
+      { name: "Redundant Connection II", lc: 685, diff: "Hard" },
+      { name: "Number of Islands", lc: 200, diff: "Medium" },
+      { name: "Accounts Merge", lc: 721, diff: "Medium" },
+      { name: "Most Stones Removed", lc: 947, diff: "Medium" },
+      { name: "Number of Provinces", lc: 547, diff: "Medium" },
+      { name: "Making A Large Island", lc: 827, diff: "Hard" },
+      { name: "Online Group Connectivity Queries", lc: null, diff: "Medium" },
+      { name: "Swim in Rising Water", lc: 778, diff: "Hard" },
+      { name: "Minimum Cost to Connect All Points (Kruskal)", lc: 1584, diff: "Medium" },
+      { name: "Number of Operations to Make Network Connected", lc: 1319, diff: "Medium" },
+      { name: "Satisfiability of Equality Equations", lc: 990, diff: "Medium" },
+    ],
+  },
+  {
+    id: 25,
+    name: "Topological Sort",
+    problems: [
+      { name: "Course Schedule", lc: 207, diff: "Medium" },
+      { name: "Course Schedule II", lc: 210, diff: "Medium" },
+      { name: "Alien Dictionary", lc: 269, diff: "Hard" },
+      { name: "Sequence Reconstruction", lc: 444, diff: "Medium" },
+      { name: "Minimum Height Trees", lc: 310, diff: "Medium" },
+      { name: "Find All Possible Recipes from Given Supplies", lc: 2115, diff: "Medium" },
+      { name: "Largest Color Value in a Directed Graph", lc: 1857, diff: "Hard" },
+      { name: "Sort Items by Groups Respecting Dependencies", lc: 1203, diff: "Hard" },
+      { name: "Parallel Courses", lc: 1136, diff: "Medium" },
+      { name: "Build a Matrix With Conditions", lc: 2392, diff: "Hard" },
+      { name: "Find Eventual Safe States", lc: 802, diff: "Medium" },
+      { name: "Longest Path With Different Adjacent Characters", lc: 2246, diff: "Hard" },
+    ],
+  },
+  {
+    id: 26,
+    name: "Shortest Path",
+    problems: [
+      { name: "Dijkstra's Algorithm (single source)", lc: null, diff: "Medium" },
+      { name: "Bellman-Ford Algorithm", lc: null, diff: "Medium" },
+      { name: "Floyd-Warshall Algorithm", lc: null, diff: "Medium" },
+      { name: "Network Delay Time (Dijkstra)", lc: 743, diff: "Medium" },
+      { name: "Cheapest Flights Within K Stops (Bellman-Ford)", lc: 787, diff: "Medium" },
+      { name: "Find the City With Smallest Number of Neighbors", lc: 1334, diff: "Medium" },
+      { name: "Path With Maximum Probability", lc: 1514, diff: "Medium" },
+      { name: "Path With Minimum Effort", lc: 1631, diff: "Medium" },
+      { name: "Swim in Rising Water", lc: 778, diff: "Hard" },
+      { name: "Shortest Path in a Grid with Obstacles Elimination", lc: 1293, diff: "Hard" },
+      { name: "Minimum Cost to Reach Destination in Time", lc: 1928, diff: "Hard" },
+      { name: "Word Ladder", lc: 127, diff: "Hard" },
+      { name: "Number of Ways to Arrive at Destination", lc: 1976, diff: "Medium" },
+    ],
+  },
+  {
+    id: 27,
+    name: "Minimum Spanning Tree",
+    problems: [
+      { name: "Minimum Cost to Connect All Points (Prim's)", lc: 1584, diff: "Medium" },
+      { name: "Minimum Cost to Connect All Points (Kruskal's)", lc: 1584, diff: "Medium" },
+      { name: "Optimize Water Distribution in a Village", lc: 1168, diff: "Hard" },
+      { name: "Minimum Spanning Tree - Prim's Algorithm", lc: null, diff: "Hard" },
+      { name: "Minimum Spanning Tree - Kruskal's Algorithm", lc: null, diff: "Hard" },
+      { name: "Remove Max Number of Edges to Keep Graph Fully Traversable", lc: 1579, diff: "Hard" },
+    ],
+  },
+  {
+    id: 28,
+    name: "Trie",
+    problems: [
+      { name: "Implement Trie (Prefix Tree)", lc: 208, diff: "Medium" },
+      { name: "Design Add and Search Words Data Structure", lc: 211, diff: "Medium" },
+      { name: "Word Search II", lc: 212, diff: "Hard" },
+      { name: "Replace Words", lc: 648, diff: "Medium" },
+      { name: "Map Sum Pairs", lc: 677, diff: "Medium" },
+      { name: "Maximum XOR of Two Numbers (Trie)", lc: 421, diff: "Medium" },
+      { name: "Palindrome Pairs", lc: 336, diff: "Hard" },
+      { name: "Search Suggestions System", lc: 1268, diff: "Medium" },
+      { name: "Longest Word in Dictionary", lc: 720, diff: "Medium" },
+      { name: "Count Words With Given Prefix", lc: 2185, diff: "Easy" },
+    ],
+  },
+  {
+    id: 29,
+    name: "Segment Tree",
+    problems: [
+      { name: "Range Sum Query Mutable", lc: 307, diff: "Medium" },
+      { name: "Range Minimum Query", lc: null, diff: "Medium" },
+      { name: "Count of Range Sum", lc: 327, diff: "Hard" },
+      { name: "Number of Longest Increasing Subsequence", lc: 673, diff: "Medium" },
+      { name: "The Skyline Problem", lc: 218, diff: "Hard" },
+      { name: "My Calendar I (Segment Tree approach)", lc: 729, diff: "Medium" },
+      { name: "My Calendar II", lc: 731, diff: "Medium" },
+      { name: "My Calendar III", lc: 732, diff: "Hard" },
+    ],
+  },
+  {
+    id: 30,
+    name: "Fenwick Tree (BIT)",
+    problems: [
+      { name: "Range Sum Query Mutable (BIT)", lc: 307, diff: "Medium" },
+      { name: "Count of Smaller Numbers After Self", lc: 315, diff: "Hard" },
+      { name: "Reverse Pairs (BIT)", lc: 493, diff: "Hard" },
+      { name: "Count of Range Sum", lc: 327, diff: "Hard" },
+      { name: "Queue Reconstruction by Height (BIT)", lc: 406, diff: "Medium" },
+    ],
+  },
+  {
+    id: 31,
+    name: "Dynamic Programming",
+    problems: [
+      { name: "Climbing Stairs", lc: 70, diff: "Easy" },
+      { name: "Fibonacci Number", lc: 509, diff: "Easy" },
+      { name: "House Robber", lc: 198, diff: "Medium" },
+      { name: "House Robber II", lc: 213, diff: "Medium" },
+      { name: "House Robber III", lc: 337, diff: "Medium" },
+      { name: "Decode Ways", lc: 91, diff: "Medium" },
+      { name: "Unique Paths", lc: 62, diff: "Medium" },
+      { name: "Unique Paths II", lc: 63, diff: "Medium" },
+      { name: "Minimum Path Sum", lc: 64, diff: "Medium" },
+      { name: "Triangle", lc: 120, diff: "Medium" },
+      { name: "Maximum Product Subarray", lc: 152, diff: "Medium" },
+      { name: "Word Break", lc: 139, diff: "Medium" },
+      { name: "Word Break II", lc: 140, diff: "Hard" },
+      { name: "Coin Change", lc: 322, diff: "Medium" },
+      { name: "Coin Change II", lc: 518, diff: "Medium" },
+    ],
+  },
+  {
+    id: 32,
+    name: "1D DP",
+    problems: [
+      { name: "Climbing Stairs", lc: 70, diff: "Easy" },
+      { name: "House Robber", lc: 198, diff: "Medium" },
+      { name: "House Robber II", lc: 213, diff: "Medium" },
+      { name: "Decode Ways", lc: 91, diff: "Medium" },
+      { name: "Counting Bits", lc: 338, diff: "Easy" },
+      { name: "Maximum Subarray (DP)", lc: 53, diff: "Medium" },
+      { name: "Maximum Product Subarray", lc: 152, diff: "Medium" },
+      { name: "Coin Change", lc: 322, diff: "Medium" },
+      { name: "Minimum Cost Climbing Stairs", lc: 746, diff: "Easy" },
+      { name: "Perfect Squares", lc: 279, diff: "Medium" },
+      { name: "Integer Break", lc: 343, diff: "Medium" },
+      { name: "Partition Equal Subset Sum", lc: 416, diff: "Medium" },
+      { name: "Last Stone Weight II", lc: 1049, diff: "Medium" },
+      { name: "Jump Game (DP)", lc: 55, diff: "Medium" },
+      { name: "Jump Game II (DP)", lc: 45, diff: "Medium" },
+      { name: "Paint House", lc: 256, diff: "Medium" },
+      { name: "Paint Fence", lc: 276, diff: "Medium" },
+      { name: "Ugly Number II", lc: 264, diff: "Medium" },
+      { name: "Combination Sum IV", lc: 377, diff: "Medium" },
+      { name: "Frog Jump", lc: 403, diff: "Hard" },
+    ],
+  },
+  {
+    id: 33,
+    name: "2D DP",
+    problems: [
+      { name: "Unique Paths", lc: 62, diff: "Medium" },
+      { name: "Unique Paths II", lc: 63, diff: "Medium" },
+      { name: "Minimum Path Sum", lc: 64, diff: "Medium" },
+      { name: "Maximal Square", lc: 221, diff: "Medium" },
+      { name: "Maximal Rectangle", lc: 85, diff: "Hard" },
+      { name: "Dungeon Game", lc: 174, diff: "Hard" },
+      { name: "Cherry Pickup", lc: 741, diff: "Hard" },
+      { name: "Cherry Pickup II", lc: 1463, diff: "Hard" },
+      { name: "Knight Probability in Chessboard", lc: 688, diff: "Medium" },
+      { name: "Out of Boundary Paths", lc: 576, diff: "Medium" },
+      { name: "Number of Dice Rolls With Target Sum", lc: 1155, diff: "Medium" },
+      { name: "Triangle", lc: 120, diff: "Medium" },
+      { name: "Count Square Submatrices with All Ones", lc: 1277, diff: "Medium" },
+    ],
+  },
+  {
+    id: 34,
+    name: "DP on Strings",
+    problems: [
+      { name: "Longest Common Subsequence", lc: 1143, diff: "Medium" },
+      { name: "Longest Common Substring", lc: null, diff: "Medium" },
+      { name: "Edit Distance", lc: 72, diff: "Medium" },
+      { name: "Delete Operation for Two Strings", lc: 583, diff: "Medium" },
+      { name: "Minimum Insertions to Make String Palindrome", lc: 1312, diff: "Hard" },
+      { name: "Shortest Common Supersequence", lc: 1092, diff: "Hard" },
+      { name: "Wildcard Matching", lc: 44, diff: "Hard" },
+      { name: "Regular Expression Matching", lc: 10, diff: "Hard" },
+      { name: "Distinct Subsequences", lc: 115, diff: "Hard" },
+      { name: "Palindrome Partitioning II", lc: 132, diff: "Hard" },
+      { name: "Longest Palindromic Subsequence", lc: 516, diff: "Medium" },
+      { name: "Count Distinct Palindromic Subsequences", lc: null, diff: "Hard" },
+      { name: "Interleaving String", lc: 97, diff: "Medium" },
+      { name: "Is Subsequence", lc: 392, diff: "Easy" },
+      { name: "Number of Distinct Subsequences", lc: 940, diff: "Hard" },
+    ],
+  },
+  {
+    id: 35,
+    name: "Knapsack Pattern",
+    problems: [
+      { name: "0/1 Knapsack", lc: null, diff: "Medium" },
+      { name: "Partition Equal Subset Sum", lc: 416, diff: "Medium" },
+      { name: "Last Stone Weight II", lc: 1049, diff: "Medium" },
+      { name: "Subset Sum", lc: null, diff: "Medium" },
+      { name: "Count of Subsets with Sum K", lc: null, diff: "Medium" },
+      { name: "Coin Change", lc: 322, diff: "Medium" },
+      { name: "Coin Change II", lc: 518, diff: "Medium" },
+      { name: "Unbounded Knapsack", lc: null, diff: "Medium" },
+      { name: "Rod Cutting Problem", lc: null, diff: "Medium" },
+      { name: "Target Sum", lc: 494, diff: "Medium" },
+      { name: "Ones and Zeroes", lc: 474, diff: "Medium" },
+      { name: "Profitable Schemes", lc: 879, diff: "Hard" },
+      { name: "Number of Ways to Earn Points", lc: 2585, diff: "Hard" },
+    ],
+  },
+  {
+    id: 36,
+    name: "LIS Pattern",
+    problems: [
+      { name: "Longest Increasing Subsequence", lc: 300, diff: "Medium" },
+      { name: "LIS in O(n log n) (Patience Sorting)", lc: 300, diff: "Medium" },
+      { name: "Number of Longest Increasing Subsequence", lc: 673, diff: "Medium" },
+      { name: "Longest Bitonic Subsequence", lc: null, diff: "Medium" },
+      { name: "Longest Increasing Subsequence in 2D (Russian Doll Envelopes)", lc: 354, diff: "Hard" },
+      { name: "Maximum Sum Increasing Subsequence", lc: null, diff: "Medium" },
+      { name: "Minimum Deletions to Make Array Sorted", lc: null, diff: "Medium" },
+      { name: "Minimum Operations to Make Subsequence", lc: 1713, diff: "Hard" },
+      { name: "Longest Divisible Subset", lc: 368, diff: "Medium" },
+      { name: "Largest Divisible Subset", lc: 368, diff: "Medium" },
+    ],
+  },
+  {
+    id: 37,
+    name: "DP on Trees",
+    problems: [
+      { name: "House Robber III", lc: 337, diff: "Medium" },
+      { name: "Binary Tree Maximum Path Sum", lc: 124, diff: "Hard" },
+      { name: "Diameter of Binary Tree", lc: 543, diff: "Easy" },
+      { name: "Maximum Product of Splitted Binary Tree", lc: 1339, diff: "Medium" },
+      { name: "Sum of Distances in Tree", lc: 834, diff: "Hard" },
+      { name: "Distribute Coins in Binary Tree", lc: 979, diff: "Medium" },
+      { name: "Binary Tree Cameras", lc: 968, diff: "Hard" },
+      { name: "Longest ZigZag Path in Binary Tree", lc: 1372, diff: "Medium" },
+      { name: "Count Good Nodes in Binary Tree", lc: 1448, diff: "Medium" },
+    ],
+  },
+  {
+    id: 38,
+    name: "DP on Graphs",
+    problems: [
+      { name: "Unique Paths in a Grid", lc: 62, diff: "Medium" },
+      { name: "Longest Path in DAG", lc: null, diff: "Medium" },
+      { name: "Minimum Cost Path", lc: 64, diff: "Medium" },
+      { name: "Number of Ways to Reach a Destination", lc: 1976, diff: "Medium" },
+      { name: "Cheapest Flights Within K Stops (DP)", lc: 787, diff: "Medium" },
+      { name: "Minimum Score of a Path Between Two Cities", lc: 2492, diff: "Medium" },
+      { name: "Longest Increasing Path in a Matrix", lc: 329, diff: "Hard" },
+    ],
+  },
+  {
+    id: 39,
+    name: "Math & Number Theory",
+    problems: [
+      { name: "Count Primes (Sieve of Eratosthenes)", lc: 204, diff: "Medium" },
+      { name: "GCD and LCM", lc: null, diff: "Easy" },
+      { name: "Power of Two", lc: 231, diff: "Easy" },
+      { name: "Power of Three", lc: 326, diff: "Easy" },
+      { name: "Power of Four", lc: 342, diff: "Easy" },
+      { name: "Factorial Trailing Zeroes", lc: 172, diff: "Medium" },
+      { name: "Excel Sheet Column Number", lc: 171, diff: "Easy" },
+      { name: "Excel Sheet Column Title", lc: 168, diff: "Easy" },
+      { name: "Happy Number", lc: 202, diff: "Easy" },
+      { name: "Ugly Number", lc: 263, diff: "Easy" },
+      { name: "Ugly Number II", lc: 264, diff: "Medium" },
+      { name: "Largest Number", lc: 179, diff: "Medium" },
+      { name: "Reverse Integer", lc: 7, diff: "Medium" },
+      { name: "Palindrome Number", lc: 9, diff: "Easy" },
+      { name: "Valid Perfect Square", lc: 367, diff: "Easy" },
+      { name: "Perfect Squares", lc: 279, diff: "Medium" },
+      { name: "Integer to English Words", lc: 273, diff: "Hard" },
+      { name: "Fraction to Recurring Decimal", lc: 166, diff: "Medium" },
+      { name: "Plus One", lc: 66, diff: "Easy" },
+      { name: "Add Digits", lc: 258, diff: "Easy" },
+      { name: "Missing Number", lc: 268, diff: "Easy" },
+      { name: "Find All Primes Up to N", lc: null, diff: "Medium" },
+      { name: "Modular Exponentiation (Fast Pow)", lc: 50, diff: "Medium" },
+      { name: "Catalan Numbers", lc: null, diff: "Medium" },
+      { name: "Josephus Problem", lc: null, diff: "Medium" },
+    ],
+  },
+];
+
+const TOP_LISTS = {
+  top50: [
+    { name: "Two Sum", lc: 1, diff: "Easy" },
+    { name: "Longest Substring Without Repeating Characters", lc: 3, diff: "Medium" },
+    { name: "Median of Two Sorted Arrays", lc: 4, diff: "Hard" },
+    { name: "Longest Palindromic Substring", lc: 5, diff: "Medium" },
+    { name: "Container With Most Water", lc: 11, diff: "Medium" },
+    { name: "3Sum", lc: 15, diff: "Medium" },
+    { name: "Maximum Subarray", lc: 53, diff: "Medium" },
+    { name: "Merge Intervals", lc: 56, diff: "Medium" },
+    { name: "Climbing Stairs", lc: 70, diff: "Easy" },
+    { name: "Word Search", lc: 79, diff: "Medium" },
+    { name: "Largest Rectangle in Histogram", lc: 84, diff: "Hard" },
+    { name: "Binary Tree Inorder Traversal", lc: 94, diff: "Easy" },
+    { name: "Validate Binary Search Tree", lc: 98, diff: "Medium" },
+    { name: "Same Tree", lc: 100, diff: "Easy" },
+    { name: "Binary Tree Level Order Traversal", lc: 102, diff: "Medium" },
+    { name: "Maximum Depth of Binary Tree", lc: 104, diff: "Easy" },
+    { name: "Construct Binary Tree from Preorder and Inorder", lc: 105, diff: "Medium" },
+    { name: "Best Time to Buy and Sell Stock", lc: 121, diff: "Easy" },
+    { name: "Binary Tree Maximum Path Sum", lc: 124, diff: "Hard" },
+    { name: "Word Ladder", lc: 127, diff: "Hard" },
+    { name: "Longest Consecutive Sequence", lc: 128, diff: "Medium" },
+    { name: "Copy List with Random Pointer", lc: 138, diff: "Medium" },
+    { name: "Word Break", lc: 139, diff: "Medium" },
+    { name: "Linked List Cycle II", lc: 142, diff: "Medium" },
+    { name: "LRU Cache", lc: 146, diff: "Medium" },
+    { name: "Evaluate Reverse Polish Notation", lc: 150, diff: "Medium" },
+    { name: "Find Minimum in Rotated Sorted Array", lc: 153, diff: "Medium" },
+    { name: "Min Stack", lc: 155, diff: "Medium" },
+    { name: "House Robber", lc: 198, diff: "Medium" },
+    { name: "Number of Islands", lc: 200, diff: "Medium" },
+    { name: "Implement Trie", lc: 208, diff: "Medium" },
+    { name: "Course Schedule", lc: 207, diff: "Medium" },
+    { name: "Kth Largest Element in an Array", lc: 215, diff: "Medium" },
+    { name: "Combination Sum", lc: 39, diff: "Medium" },
+    { name: "Product of Array Except Self", lc: 238, diff: "Medium" },
+    { name: "Lowest Common Ancestor of Binary Tree", lc: 236, diff: "Medium" },
+    { name: "Serialize and Deserialize Binary Tree", lc: 297, diff: "Hard" },
+    { name: "Longest Increasing Subsequence", lc: 300, diff: "Medium" },
+    { name: "Coin Change", lc: 322, diff: "Medium" },
+    { name: "Top K Frequent Elements", lc: 347, diff: "Medium" },
+    { name: "Decode String", lc: 394, diff: "Medium" },
+    { name: "Pacific Atlantic Water Flow", lc: 417, diff: "Medium" },
+    { name: "Trapping Rain Water", lc: 42, diff: "Hard" },
+    { name: "Find Median from Data Stream", lc: 295, diff: "Hard" },
+    { name: "Merge k Sorted Lists", lc: 23, diff: "Hard" },
+    { name: "Edit Distance", lc: 72, diff: "Medium" },
+    { name: "Minimum Window Substring", lc: 76, diff: "Hard" },
+    { name: "N-Queens", lc: 51, diff: "Hard" },
+    { name: "Longest Common Subsequence", lc: 1143, diff: "Medium" },
+    { name: "Accounts Merge", lc: 721, diff: "Medium" },
+  ],
+  top100: [
+    { name: "Two Sum", lc: 1, diff: "Easy" },
+    { name: "Add Two Numbers", lc: 2, diff: "Medium" },
+    { name: "Longest Substring Without Repeating Characters", lc: 3, diff: "Medium" },
+    { name: "Median of Two Sorted Arrays", lc: 4, diff: "Hard" },
+    { name: "Longest Palindromic Substring", lc: 5, diff: "Medium" },
+    { name: "Container With Most Water", lc: 11, diff: "Medium" },
+    { name: "3Sum", lc: 15, diff: "Medium" },
+    { name: "Merge Two Sorted Lists", lc: 21, diff: "Easy" },
+    { name: "Generate Parentheses", lc: 22, diff: "Medium" },
+    { name: "Merge k Sorted Lists", lc: 23, diff: "Hard" },
+    { name: "Search in Rotated Sorted Array", lc: 33, diff: "Medium" },
+    { name: "Combination Sum", lc: 39, diff: "Medium" },
+    { name: "Trapping Rain Water", lc: 42, diff: "Hard" },
+    { name: "Permutations", lc: 46, diff: "Medium" },
+    { name: "N-Queens", lc: 51, diff: "Hard" },
+    { name: "Maximum Subarray", lc: 53, diff: "Medium" },
+    { name: "Merge Intervals", lc: 56, diff: "Medium" },
+    { name: "Climbing Stairs", lc: 70, diff: "Easy" },
+    { name: "Minimum Window Substring", lc: 76, diff: "Hard" },
+    { name: "Word Search", lc: 79, diff: "Medium" },
+    { name: "Largest Rectangle in Histogram", lc: 84, diff: "Hard" },
+    { name: "Binary Tree Inorder Traversal", lc: 94, diff: "Easy" },
+    { name: "Validate Binary Search Tree", lc: 98, diff: "Medium" },
+    { name: "Symmetric Tree", lc: 101, diff: "Easy" },
+    { name: "Binary Tree Level Order Traversal", lc: 102, diff: "Medium" },
+    { name: "Maximum Depth of Binary Tree", lc: 104, diff: "Easy" },
+    { name: "Construct Binary Tree from Preorder and Inorder", lc: 105, diff: "Medium" },
+    { name: "Best Time to Buy and Sell Stock", lc: 121, diff: "Easy" },
+    { name: "Binary Tree Maximum Path Sum", lc: 124, diff: "Hard" },
+    { name: "Word Ladder", lc: 127, diff: "Hard" },
+    { name: "Longest Consecutive Sequence", lc: 128, diff: "Medium" },
+    { name: "Palindrome Partitioning", lc: 131, diff: "Medium" },
+    { name: "Copy List with Random Pointer", lc: 138, diff: "Medium" },
+    { name: "Word Break", lc: 139, diff: "Medium" },
+    { name: "Linked List Cycle II", lc: 142, diff: "Medium" },
+    { name: "LRU Cache", lc: 146, diff: "Medium" },
+    { name: "Sort List", lc: 148, diff: "Medium" },
+    { name: "Evaluate Reverse Polish Notation", lc: 150, diff: "Medium" },
+    { name: "Find Minimum in Rotated Sorted Array", lc: 153, diff: "Medium" },
+    { name: "Min Stack", lc: 155, diff: "Medium" },
+    { name: "House Robber", lc: 198, diff: "Medium" },
+    { name: "Number of Islands", lc: 200, diff: "Medium" },
+    { name: "Course Schedule", lc: 207, diff: "Medium" },
+    { name: "Implement Trie", lc: 208, diff: "Medium" },
+    { name: "Kth Largest Element", lc: 215, diff: "Medium" },
+    { name: "Combination Sum", lc: 39, diff: "Medium" },
+    { name: "Product of Array Except Self", lc: 238, diff: "Medium" },
+    { name: "Sliding Window Maximum", lc: 239, diff: "Hard" },
+    { name: "Kth Smallest in BST", lc: 230, diff: "Medium" },
+    { name: "Lowest Common Ancestor of Binary Tree", lc: 236, diff: "Medium" },
+    { name: "Find Median from Data Stream", lc: 295, diff: "Hard" },
+    { name: "Serialize and Deserialize Binary Tree", lc: 297, diff: "Hard" },
+    { name: "Longest Increasing Subsequence", lc: 300, diff: "Medium" },
+    { name: "Coin Change", lc: 322, diff: "Medium" },
+    { name: "Reverse Linked List", lc: 206, diff: "Easy" },
+    { name: "Top K Frequent Elements", lc: 347, diff: "Medium" },
+    { name: "Decode String", lc: 394, diff: "Medium" },
+    { name: "Partition Equal Subset Sum", lc: 416, diff: "Medium" },
+    { name: "Pacific Atlantic Water Flow", lc: 417, diff: "Medium" },
+    { name: "Target Sum", lc: 494, diff: "Medium" },
+    { name: "Word Break II", lc: 140, diff: "Hard" },
+    { name: "Edit Distance", lc: 72, diff: "Medium" },
+    { name: "Unique Paths", lc: 62, diff: "Medium" },
+    { name: "Jump Game", lc: 55, diff: "Medium" },
+    { name: "Gas Station", lc: 134, diff: "Medium" },
+    { name: "Maximal Square", lc: 221, diff: "Medium" },
+    { name: "House Robber II", lc: 213, diff: "Medium" },
+    { name: "Accounts Merge", lc: 721, diff: "Medium" },
+    { name: "Daily Temperatures", lc: 739, diff: "Medium" },
+    { name: "Sort Colors", lc: 75, diff: "Medium" },
+    { name: "Subsets", lc: 78, diff: "Medium" },
+    { name: "Coin Change II", lc: 518, diff: "Medium" },
+    { name: "Rotting Oranges", lc: 994, diff: "Medium" },
+    { name: "Course Schedule II", lc: 210, diff: "Medium" },
+    { name: "Alien Dictionary", lc: 269, diff: "Hard" },
+    { name: "Longest Common Subsequence", lc: 1143, diff: "Medium" },
+    { name: "Number of Connected Components", lc: 323, diff: "Medium" },
+    { name: "Graph Valid Tree", lc: 261, diff: "Medium" },
+    { name: "Design Add and Search Words Data Structure", lc: 211, diff: "Medium" },
+    { name: "Find the Duplicate Number", lc: 287, diff: "Medium" },
+    { name: "Reorder List", lc: 143, diff: "Medium" },
+    { name: "Binary Tree Right Side View", lc: 199, diff: "Medium" },
+    { name: "Sum of Subarray Minimums", lc: 907, diff: "Medium" },
+    { name: "Minimum Height Trees", lc: 310, diff: "Medium" },
+    { name: "Reconstruct Itinerary", lc: 332, diff: "Hard" },
+    { name: "Maximum Product Subarray", lc: 152, diff: "Medium" },
+    { name: "Valid Parentheses", lc: 20, diff: "Easy" },
+    { name: "Subarray Sum Equals K", lc: 560, diff: "Medium" },
+    { name: "K Closest Points to Origin", lc: 973, diff: "Medium" },
+    { name: "Minimum Cost to Connect All Points", lc: 1584, diff: "Medium" },
+    { name: "Path With Maximum Probability", lc: 1514, diff: "Medium" },
+    { name: "Cheapest Flights Within K Stops", lc: 787, diff: "Medium" },
+    { name: "Network Delay Time", lc: 743, diff: "Medium" },
+    { name: "Binary Search", lc: 704, diff: "Easy" },
+    { name: "Decode Ways", lc: 91, diff: "Medium" },
+    { name: "Task Scheduler", lc: 621, diff: "Medium" },
+    { name: "Single Number", lc: 136, diff: "Easy" },
+  ],
+  top150: [],
+  top200: [],
+};
+
+// Generate top150 and top200 from topics
+const seen = new Set();
+const allProblems = [];
+ALL_TOPICS.forEach(topic => {
+  topic.problems.forEach(p => {
+    const key = `${p.name}`;
+    if (!seen.has(key) && p.lc) {
+      seen.add(key);
+      allProblems.push({ ...p, topic: topic.name });
+    }
+  });
+});
+
+// Add top100 to seen
+const seenTop = new Set(TOP_LISTS.top100.map(p => p.name));
+const extra = allProblems.filter(p => !seenTop.has(p.name));
+
+TOP_LISTS.top150 = [
+  ...TOP_LISTS.top100,
+  ...extra.slice(0, 50).map(p => ({ name: p.name, lc: p.lc, diff: p.diff })),
+];
+
+const seenTop150 = new Set(TOP_LISTS.top150.map(p => p.name));
+const extra2 = allProblems.filter(p => !seenTop150.has(p.name));
+TOP_LISTS.top200 = [
+  ...TOP_LISTS.top150,
+  ...extra2.slice(0, 50).map(p => ({ name: p.name, lc: p.lc, diff: p.diff })),
+];
+
+const TOP_LIST_META = [
+  { key: "top50", label: "Top 50 Most Repeated" },
+  { key: "top100", label: "Top 100 Must Solve" },
+  { key: "top150", label: "Top 150 — 90% Coverage" },
+  { key: "top200", label: "Top 200 Complete Prep" },
+];
+
+const DIFF_ORDER = { Easy: 0, Medium: 1, Hard: 2 };
+
+function DiffBadge({ diff }) {
+  return (
+    <span
+      style={{
+        display: "inline-block",
+        padding: "1px 8px",
+        borderRadius: 4,
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: 0.5,
+        color: "#fff",
+        background: DIFFICULTY_COLOR[diff] || "#888",
+        minWidth: 48,
+        textAlign: "center",
+        flexShrink: 0,
+      }}
+    >
+      {diff}
+    </span>
+  );
+}
+
+function ProblemRow({ idx, problem, solved, revision, onToggleSolved, onToggleRevision }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 9,
+        padding: "7px 12px",
+        borderBottom: "1px solid #1e2533",
+        transition: "background 0.15s",
+        cursor: problem.lc ? "pointer" : "default",
+        background: solved ? "#0d1f1d" : "transparent",
+      }}
+      onClick={() =>
+        problem.lc &&
+        window.open(`https://leetcode.com/problems/${slugify(problem.name)}/`, "_blank")
+      }
+      onMouseEnter={e => (e.currentTarget.style.background = solved ? "#102b28" : "#161d2e")}
+      onMouseLeave={e => (e.currentTarget.style.background = solved ? "#0d1f1d" : "transparent")}
+    >
+      <label
+        title={solved ? "Mark unsolved" : "Mark solved"}
+        onClick={e => e.stopPropagation()}
+        style={{
+          width: 22,
+          minWidth: 22,
+          height: 22,
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+        }}
+      >
+        <input
+          type="checkbox"
+          checked={solved}
+          onChange={() => onToggleSolved(problem)}
+          style={{
+            width: 15,
+            height: 15,
+            accentColor: "#00b8a3",
+            cursor: "pointer",
+          }}
+        />
+      </label>
+      <button
+        type="button"
+        title={revision ? "Remove from revision" : "Add to revision"}
+        onClick={e => {
+          e.stopPropagation();
+          onToggleRevision(problem);
+        }}
+        style={{
+          width: 26,
+          height: 26,
+          borderRadius: 5,
+          border: `1px solid ${revision ? "#f59e0b" : "#2d3f5c"}`,
+          background: revision ? "#f59e0b22" : "transparent",
+          color: revision ? "#fbbf24" : "#64748b",
+          fontSize: 15,
+          lineHeight: 1,
+          cursor: "pointer",
+          fontFamily: "inherit",
+          flexShrink: 0,
+        }}
+        aria-pressed={revision}
+      >
+        {revision ? "★" : "☆"}
+      </button>
+      <span style={{ color: "#4a5568", fontSize: 12, minWidth: 30, textAlign: "right", flexShrink: 0 }}>
+        {idx + 1}.
+      </span>
+      <span
+        style={{
+          flex: 1,
+          color: solved ? "#7dd3c7" : "#e2e8f0",
+          fontSize: 13.5,
+          lineHeight: 1.4,
+          textDecoration: solved ? "line-through" : "none",
+          minWidth: 0,
+        }}
+      >
+        {problem.name}
+      </span>
+      {problem.lc && (
+        <span style={{ color: "#3b82f6", fontSize: 12, minWidth: 38, textAlign: "right", flexShrink: 0 }}>
+          #{problem.lc}
+        </span>
+      )}
+      <DiffBadge diff={problem.diff} />
+    </div>
+  );
+}
+
+function slugify(name) {
+  return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function problemKey(problem) {
+  return problem.lc ? `lc-${problem.lc}` : `name-${slugify(problem.name)}`;
+}
+
+function getUniqueProblems() {
+  const seen = new Set();
+  const problems = [];
+  ALL_TOPICS.forEach(topic => {
+    topic.problems.forEach(problem => {
+      const key = problemKey(problem);
+      if (!seen.has(key)) {
+        seen.add(key);
+        problems.push(problem);
+      }
+    });
+  });
+  return problems;
+}
+
+function loadProgress() {
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (!stored) return { solved: {}, revision: {} };
+    const parsed = JSON.parse(stored);
+    return {
+      solved: parsed && parsed.solved ? parsed.solved : {},
+      revision: parsed && parsed.revision ? parsed.revision : {},
+    };
+  } catch (error) {
+    return { solved: {}, revision: {} };
+  }
+}
+
+function App() {
+  const [search, setSearch] = useState("");
+  const [diffFilter, setDiffFilter] = useState("All");
+  const [activeView, setActiveView] = useState("topics");
+  const [activeTopList, setActiveTopList] = useState("top50");
+  const [expandedTopics, setExpandedTopics] = useState(new Set([1]));
+  const [progress, setProgress] = useState(loadProgress);
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+    } catch (error) {
+      // Keep the app usable even if browser storage is unavailable.
+    }
+  }, [progress]);
+
+  const uniqueProblemList = useMemo(() => getUniqueProblems(), []);
+
+  const isSolved = problem => Boolean(progress.solved[problemKey(problem)]);
+  const isRevision = problem => Boolean(progress.revision[problemKey(problem)]);
+
+  const toggleProgress = (bucket, problem) => {
+    const key = problemKey(problem);
+    setProgress(prev => {
+      const nextBucket = { ...prev[bucket] };
+      if (nextBucket[key]) delete nextBucket[key];
+      else nextBucket[key] = true;
+      return { ...prev, [bucket]: nextBucket };
+    });
+  };
+
+  const renderProblemRow = (problem, i) => (
+    <ProblemRow
+      key={`${problemKey(problem)}-${i}`}
+      idx={i}
+      problem={problem}
+      solved={isSolved(problem)}
+      revision={isRevision(problem)}
+      onToggleSolved={p => toggleProgress("solved", p)}
+      onToggleRevision={p => toggleProgress("revision", p)}
+    />
+  );
+
+  const toggleTopic = id => {
+    setExpandedTopics(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const expandAll = () => setExpandedTopics(new Set(ALL_TOPICS.map(t => t.id)));
+  const collapseAll = () => setExpandedTopics(new Set());
+
+  const filteredTopics = useMemo(() => {
+    const q = search.toLowerCase().trim();
+    return ALL_TOPICS.map(topic => ({
+      ...topic,
+      problems: topic.problems.filter(p => {
+        const matchQ = !q || p.name.toLowerCase().includes(q) || (p.lc && String(p.lc).includes(q));
+        const matchD = diffFilter === "All" || p.diff === diffFilter;
+        return matchQ && matchD;
+      }),
+    })).filter(t => t.problems.length > 0);
+  }, [search, diffFilter]);
+
+  const filteredTopList = useMemo(() => {
+    const q = search.toLowerCase().trim();
+    return (TOP_LISTS[activeTopList] || []).filter(p => {
+      const matchQ = !q || p.name.toLowerCase().includes(q) || (p.lc && String(p.lc).includes(q));
+      const matchD = diffFilter === "All" || p.diff === diffFilter;
+      return matchQ && matchD;
+    });
+  }, [search, diffFilter, activeTopList]);
+
+  const filteredRevisionList = useMemo(() => {
+    const q = search.toLowerCase().trim();
+    return uniqueProblemList.filter(p => {
+      const matchRevision = progress.revision[problemKey(p)];
+      const matchQ = !q || p.name.toLowerCase().includes(q) || (p.lc && String(p.lc).includes(q));
+      const matchD = diffFilter === "All" || p.diff === diffFilter;
+      return matchRevision && matchQ && matchD;
+    });
+  }, [search, diffFilter, progress.revision, uniqueProblemList]);
+
+  const uniqueProblems = uniqueProblemList.length;
+  const solvedCount = uniqueProblemList.filter(isSolved).length;
+  const revisionCount = uniqueProblemList.filter(isRevision).length;
+
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#0a0e1a",
+        fontFamily: "'JetBrains Mono', 'Fira Mono', 'Courier New', monospace",
+        color: "#e2e8f0",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          background: "linear-gradient(135deg, #0f1729 0%, #0d1425 100%)",
+          borderBottom: "1px solid #1e2d47",
+          padding: "20px 24px 16px",
+          position: "sticky",
+          top: 0,
+          zIndex: 100,
+        }}
+      >
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
+            <div style={{ fontSize: 22, fontWeight: 900, color: "#60a5fa", letterSpacing: -0.5 }}>
+              {"{ DSA }"}
+            </div>
+            <div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9", letterSpacing: -0.3 }}>
+                Interview Problem Bank
+              </div>
+              <div style={{ fontSize: 11, color: "#64748b" }}>
+                SDE-1 · 8–20 LPA · {solvedCount}/{uniqueProblems} solved · {revisionCount} for revision
+              </div>
+            </div>
+            <div style={{ marginLeft: "auto", display: "flex", gap: 10 }}>
+              {["Easy", "Medium", "Hard"].map(d => (
+                <div key={d} style={{ display: "flex", alignItems: "center", gap: 4 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: "50%", background: DIFFICULTY_COLOR[d] }} />
+                  <span style={{ fontSize: 11, color: "#94a3b8" }}>{d}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Search + Filters */}
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+            <input
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search problems by name or LeetCode #..."
+              style={{
+                flex: 1,
+                minWidth: 200,
+                padding: "8px 14px",
+                borderRadius: 6,
+                border: "1px solid #2d3f5c",
+                background: "#0a1020",
+                color: "#e2e8f0",
+                fontSize: 13,
+                outline: "none",
+              }}
+            />
+            {["All", "Easy", "Medium", "Hard"].map(d => (
+              <button
+                key={d}
+                onClick={() => setDiffFilter(d)}
+                style={{
+                  padding: "7px 14px",
+                  borderRadius: 6,
+                  border: `1px solid ${diffFilter === d ? (DIFFICULTY_COLOR[d] || "#3b82f6") : "#2d3f5c"}`,
+                  background: diffFilter === d ? `${DIFFICULTY_COLOR[d] || "#3b82f6"}22` : "transparent",
+                  color: diffFilter === d ? (DIFFICULTY_COLOR[d] || "#60a5fa") : "#64748b",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                }}
+              >
+                {d}
+              </button>
+            ))}
+          </div>
+
+          {/* View Toggle */}
+          <div style={{ display: "flex", gap: 4, marginTop: 10 }}>
+            <button
+              onClick={() => setActiveView("topics")}
+              style={{
+                padding: "5px 14px",
+                borderRadius: 5,
+                border: "none",
+                background: activeView === "topics" ? "#1e40af" : "transparent",
+                color: activeView === "topics" ? "#fff" : "#64748b",
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              By Topic
+            </button>
+            <button
+              onClick={() => setActiveView("toplists")}
+              style={{
+                padding: "5px 14px",
+                borderRadius: 5,
+                border: "none",
+                background: activeView === "toplists" ? "#1e40af" : "transparent",
+                color: activeView === "toplists" ? "#fff" : "#64748b",
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Curated Lists
+            </button>
+            <button
+              onClick={() => setActiveView("revision")}
+              style={{
+                padding: "5px 14px",
+                borderRadius: 5,
+                border: "none",
+                background: activeView === "revision" ? "#92400e" : "transparent",
+                color: activeView === "revision" ? "#fff" : "#64748b",
+                fontSize: 12,
+                fontWeight: 700,
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+            >
+              Revision ({revisionCount})
+            </button>
+            {activeView === "topics" && !search && (
+              <>
+                <button
+                  onClick={expandAll}
+                  style={{
+                    marginLeft: "auto",
+                    padding: "5px 12px",
+                    borderRadius: 5,
+                    border: "1px solid #2d3f5c",
+                    background: "transparent",
+                    color: "#64748b",
+                    fontSize: 11,
+                    cursor: "pointer",
+                    fontFamily: "inherit",
+                  }}
+                >
+                  Expand All
+                </button>
+                <button
+                  onClick={collapseAll}
+                  style={{
+                    padding: "5px 12px",
+                    borderRadius: 5,
+                    border: "1px solid #2d3f5c",
+                    background: "transparent",
+                    color: "#64748b",
+                    fontSize: 11,
+                    cursor: "pointer",
+                    fontFamily: "inherit",
+                  }}
+                >
+                  Collapse All
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Body */}
+      <div style={{ maxWidth: 900, margin: "0 auto", padding: "20px 16px 60px" }}>
+        {activeView === "topics" && (
+          <>
+            {filteredTopics.length === 0 && (
+              <div style={{ textAlign: "center", padding: 60, color: "#4a5568", fontSize: 14 }}>
+                No problems match your search.
+              </div>
+            )}
+            {filteredTopics.map(topic => {
+              const expanded = expandedTopics.has(topic.id) || search.trim() !== "";
+              const easy = topic.problems.filter(p => p.diff === "Easy").length;
+              const med = topic.problems.filter(p => p.diff === "Medium").length;
+              const hard = topic.problems.filter(p => p.diff === "Hard").length;
+              return (
+                <div
+                  key={topic.id}
+                  style={{
+                    marginBottom: 10,
+                    border: "1px solid #1e2d47",
+                    borderRadius: 8,
+                    overflow: "hidden",
+                    background: "#0d1425",
+                  }}
+                >
+                  <div
+                    onClick={() => toggleTopic(topic.id)}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      padding: "12px 16px",
+                      cursor: "pointer",
+                      userSelect: "none",
+                      gap: 12,
+                      background: expanded ? "#111827" : "#0d1425",
+                      transition: "background 0.15s",
+                    }}
+                  >
+                    <span style={{ color: "#3b82f6", fontSize: 12, minWidth: 24, fontWeight: 700 }}>
+                      {topic.id < 10 ? `0${topic.id}` : topic.id}
+                    </span>
+                    <span style={{ flex: 1, fontWeight: 700, fontSize: 14, color: "#f1f5f9" }}>
+                      {topic.name}
+                    </span>
+                    <div style={{ display: "flex", gap: 6 }}>
+                      {easy > 0 && <span style={{ color: DIFFICULTY_COLOR.Easy, fontSize: 11 }}>E:{easy}</span>}
+                      {med > 0 && <span style={{ color: DIFFICULTY_COLOR.Medium, fontSize: 11 }}>M:{med}</span>}
+                      {hard > 0 && <span style={{ color: DIFFICULTY_COLOR.Hard, fontSize: 11 }}>H:{hard}</span>}
+                    </div>
+                    <span style={{ color: "#4a5568", fontSize: 12, minWidth: 28, textAlign: "right" }}>
+                      {topic.problems.length}
+                    </span>
+                    <span style={{ color: "#4a5568", fontSize: 14 }}>{expanded ? "▲" : "▼"}</span>
+                  </div>
+                  {expanded && (
+                    <div>
+                      {topic.problems.map(renderProblemRow)}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </>
+        )}
+
+        {activeView === "toplists" && (
+          <>
+            <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
+              {TOP_LIST_META.map(m => (
+                <button
+                  key={m.key}
+                  onClick={() => setActiveTopList(m.key)}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: 6,
+                    border: `1px solid ${activeTopList === m.key ? "#3b82f6" : "#2d3f5c"}`,
+                    background: activeTopList === m.key ? "#1e3a8a33" : "transparent",
+                    color: activeTopList === m.key ? "#60a5fa" : "#64748b",
+                    fontSize: 12,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    fontFamily: "inherit",
+                  }}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+
+            <div
+              style={{
+                background: "#0d1425",
+                border: "1px solid #1e2d47",
+                borderRadius: 8,
+                overflow: "hidden",
+              }}
+            >
+              <div
+                style={{
+                  padding: "12px 16px",
+                  background: "#111827",
+                  borderBottom: "1px solid #1e2d47",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span style={{ fontWeight: 700, fontSize: 14, color: "#60a5fa" }}>
+                  {TOP_LIST_META.find(m => m.key === activeTopList)?.label}
+                </span>
+                <span style={{ fontSize: 12, color: "#4a5568" }}>
+                  {filteredTopList.length} problems
+                </span>
+              </div>
+              {filteredTopList.length === 0 && (
+                <div style={{ padding: 40, textAlign: "center", color: "#4a5568", fontSize: 14 }}>
+                  No problems match your filters.
+                </div>
+              )}
+              {filteredTopList.map(renderProblemRow)}
+            </div>
+          </>
+        )}
+
+        {activeView === "revision" && (
+          <div
+            style={{
+              background: "#0d1425",
+              border: "1px solid #1e2d47",
+              borderRadius: 8,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                padding: "12px 16px",
+                background: "#111827",
+                borderBottom: "1px solid #1e2d47",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ fontWeight: 700, fontSize: 14, color: "#fbbf24" }}>
+                Revision Questions
+              </span>
+              <span style={{ fontSize: 12, color: "#4a5568" }}>
+                {filteredRevisionList.length} selected
+              </span>
+            </div>
+            {filteredRevisionList.length === 0 && (
+              <div style={{ padding: 40, textAlign: "center", color: "#4a5568", fontSize: 14 }}>
+                No revision problems match your filters.
+              </div>
+            )}
+            {filteredRevisionList.map(renderProblemRow)}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
